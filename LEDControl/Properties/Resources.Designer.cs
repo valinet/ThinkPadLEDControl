@@ -124,6 +124,7 @@ namespace LEDControl.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &quot;&lt;/Command&gt;
+        ///      &lt;Arguments&gt;minimize&lt;/Arguments&gt;
         ///    &lt;/Exec&gt;
         ///  &lt;/Actions&gt;
         ///&lt;/Task&gt;.
