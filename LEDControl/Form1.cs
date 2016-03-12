@@ -980,5 +980,6 @@ namespace LEDControl
         {
             MessageBox.Show("Disables the key monitoring functionality of the application.\r\nThis includes also uninstalling or installing the keyboard hook that provides real time status of the keys (without delay).");
         }
+        //end
     }
 }
