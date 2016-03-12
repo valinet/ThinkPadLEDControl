@@ -1,0 +1,11 @@
+</Author>
+  </RegistrationInfo>
+  <Triggers>
+    <LogonTrigger>
+      <StartBoundary>2015-01-27T18:30:00</StartBoundary>
+      <Enabled>true</Enabled>
+    </LogonTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <UserId>

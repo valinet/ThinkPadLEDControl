@@ -1,0 +1,5 @@
+"</Command>
+      <Arguments>minimize</Arguments>
+    </Exec>
+  </Actions>
+</Task>
