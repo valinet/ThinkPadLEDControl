@@ -107,16 +107,13 @@
     <None Include="Resources\IdleIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\IdleIcon.ico" />
+    <None Include="Resources\ReadIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\ReadIcon.ico" />
+    <None Include="Resources\RWIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\RWIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\WriteIcon.ico" />
+    <None Include="Resources\WriteIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="part1.txt" />
@@ -129,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="part4.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
