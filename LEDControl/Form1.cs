@@ -779,7 +779,6 @@ namespace LEDControl
                 caps_lock = caps_lock_delay;
                 NotifyIcon1.Icon = LEDControl.Properties.Resources.IdleIcon;
                 if (IsAdministrator() || checkBox5.Checked) InProc = false;
-                //NotifyIcon1.Visible = false;
             }
             else
             {
@@ -798,7 +797,6 @@ namespace LEDControl
                     InProc = true;
                     if (!workerHDD.IsBusy) workerHDD.RunWorkerAsync();
                 }
-                //NotifyIcon1.Visible = true;
             }
         }
 
