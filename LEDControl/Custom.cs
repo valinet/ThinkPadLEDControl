@@ -35,12 +35,16 @@ namespace LEDControl
 
         private void label5_Click(object sender, EventArgs e)
         {
-            int decValue = int.Parse(textBox1.Text, System.Globalization.NumberStyles.HexNumber);
-            if (decValue == 255) decValue = -1;
-            decValue += 1;
-            textBox1.Text = decValue.ToString("X");
-            if (textBox1.Text.Length == 1) textBox1.Text = "0" + textBox1.Text;
-            textBox1.SelectionStart = 2;
+            try
+            {
+                int decValue = int.Parse(textBox1.Text, System.Globalization.NumberStyles.HexNumber);
+                if (decValue == 255) decValue = -1;
+                decValue += 1;
+                textBox1.Text = decValue.ToString("X");
+                if (textBox1.Text.Length == 1) textBox1.Text = "0" + textBox1.Text;
+                textBox1.SelectionStart = 2;
+            }
+            catch { }
         }
     }
 }
