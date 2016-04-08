@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -304,6 +305,7 @@ namespace LEDControl
         {
             InitializeComponent();
             frm = this;
+            SystemEvents.PowerModeChanged += OnPowerChange;
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -335,6 +337,7 @@ namespace LEDControl
                     case "minimize":
                         this.WindowState = FormWindowState.Minimized;
                         hide_me = true;
+                        if (checkHDD.Checked && IsAdministrator()) timer1.Enabled = true;
                         break;
                     case "exit":
                         SaveSettings();
@@ -574,18 +577,10 @@ namespace LEDControl
                         System.Threading.Thread.Sleep((int)numericUpDown2.Value);
                         C += 1;
                     }
-                    if (hide_me)
-                    {
-                        DoOnUIThread(delegate ()
-                        {
-                            this.Hide();
-                        });
-                        hide_me = false;
-                    }
                     if (checkHDD.Checked) caps_lock = caps_lock_delay;
                     else caps_lock++;
                 }
-                if (!IsAdministrator() && !checkBox5.Checked && caps_lock == caps_lock_delay)
+                if ((!IsAdministrator() && !checkBox5.Checked && caps_lock == caps_lock_delay) || hide_me)
                 {
                     caps_lock = 0;
                     CheckKeys();
@@ -595,6 +590,15 @@ namespace LEDControl
                         System.Threading.Thread.Sleep(caps_lock_delay);
                     }
                 }
+                if (hide_me)
+                {
+                    DoOnUIThread(delegate ()
+                    {
+                        this.Hide();
+                    });
+                    hide_me = false;
+                }
+                if (workerHDD.CancellationPending) break;
             }
         }
         public void CheckKeys()
@@ -721,14 +725,14 @@ namespace LEDControl
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
-            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2);
+            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
-            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2);
+            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -979,6 +983,64 @@ namespace LEDControl
         private void button6_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Disables the key monitoring functionality of the application.\r\nThis includes also uninstalling or installing the keyboard hook that provides real time status of the keys (without delay).");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (hide_me)
+            {
+                DoOnUIThread(delegate ()
+                {
+                    this.Hide();
+                });
+                hide_me = false;
+                timer1.Enabled = false;
+            }
+        }
+
+        bool wasRunning = false;
+        void OnPowerChange(Object sender, PowerModeChangedEventArgs e)
+        {
+            switch (e.Mode)
+            {
+                case PowerModes.Resume:
+                    if (wasRunning)
+                    {
+                        wasRunning = false;
+                        workerHDD.RunWorkerAsync();
+                    }
+                    CheckKeys();
+                    CheckKeys();
+                    CheckKeys();
+                    CheckKeys();
+                    break;
+                case PowerModes.Suspend:
+                    if (workerHDD.IsBusy)
+                    {
+                        wasRunning = true;
+                        workerHDD.CancelAsync();
+                    }
+                    break;
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Custom c = new Custom();
+            DialogResult dr;
+            do
+            {
+                dr = c.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    byte t = Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber);
+                    byte _out = (byte)(Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber) | Byte.Parse(c.textBox2.Text, System.Globalization.NumberStyles.HexNumber));
+                    WriteByteToEC(TP_LED_OFFSET, _out);
+                    System.Media.SystemSounds.Asterisk.Play();
+                }
+            }
+            while (dr == DialogResult.OK);
+
         }
         //end-
     }

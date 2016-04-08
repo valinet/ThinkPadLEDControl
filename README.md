@@ -32,3 +32,8 @@ Edit(2): new version released, 1.2.0.0:
     Added posibility of monitoring the NumLock key as well, besides the existing Caps Lock option
     Added new information about resources used, and version info, in the About screen
     Added several new explanaitions for the features offered via the '?' buttons
+
+Edit(3): new version released, 1.3.0.0
+
+    Checks monitored keys when started minimized, so the keys are accurately read from the get-go
+    TO-DO: Disable HDD updates when computer prepares to sleep, and resume when computer wakes up, in order to avoid illegal access and writes to the Embedded Controller (EC)
