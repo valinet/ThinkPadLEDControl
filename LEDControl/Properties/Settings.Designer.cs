@@ -250,5 +250,29 @@ namespace LEDControl.Properties {
                 this["NLSleep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RememberKBD {
+            get {
+                return ((bool)(this["RememberKBD"]));
+            }
+            set {
+                this["RememberKBD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int KBDLevel {
+            get {
+                return ((int)(this["KBDLevel"]));
+            }
+            set {
+                this["KBDLevel"] = value;
+            }
+        }
     }
 }

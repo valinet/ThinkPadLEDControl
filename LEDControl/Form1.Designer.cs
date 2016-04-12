@@ -92,6 +92,9 @@
             this.button6 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.rememberKBD = new System.Windows.Forms.CheckBox();
+            this.lightTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -340,7 +343,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 578);
+            this.label7.Location = new System.Drawing.Point(13, 630);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(424, 17);
@@ -349,7 +352,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 601);
+            this.button1.Location = new System.Drawing.Point(16, 653);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -640,7 +643,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(123, 601);
+            this.button4.Location = new System.Drawing.Point(123, 653);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(316, 28);
@@ -776,7 +779,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(16, 637);
+            this.button7.Location = new System.Drawing.Point(16, 689);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(215, 28);
@@ -785,11 +788,41 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(231, 689);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 56;
+            this.button8.Text = "button8";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // rememberKBD
+            // 
+            this.rememberKBD.Location = new System.Drawing.Point(21, 586);
+            this.rememberKBD.Margin = new System.Windows.Forms.Padding(4);
+            this.rememberKBD.Name = "rememberKBD";
+            this.rememberKBD.Size = new System.Drawing.Size(436, 40);
+            this.rememberKBD.TabIndex = 57;
+            this.rememberKBD.Text = "Remember keyboard illumination level after restart, sleep, and other power events" +
+    "";
+            this.rememberKBD.UseVisualStyleBackColor = true;
+            this.rememberKBD.CheckedChanged += new System.EventHandler(this.rememberKBD_CheckedChanged);
+            // 
+            // lightTimer
+            // 
+            this.lightTimer.Interval = 1000;
+            this.lightTimer.Tick += new System.EventHandler(this.lightTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 673);
+            this.ClientSize = new System.Drawing.Size(453, 730);
+            this.Controls.Add(this.rememberKBD);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.checkBox5);
@@ -926,6 +959,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.CheckBox rememberKBD;
+        private System.Windows.Forms.Timer lightTimer;
     }
 }
 

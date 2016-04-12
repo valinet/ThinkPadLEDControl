@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.ApplicationServices;
 
 namespace LEDControl
 {
@@ -234,6 +235,49 @@ namespace LEDControl
         #endregion
 
         #region Settings
+        void ReadSettingsKBD()
+        {
+            if (rememberKBD.Checked)
+            {
+                switch (Properties.Settings.Default.KBDLevel)
+                {
+                    case 0:
+                        SetKeyboardLevel(LightLevel.Off);
+                        break;
+                    case 1:
+                        SetKeyboardLevel(LightLevel.Low);
+                        break;
+                    case 2:
+                        SetKeyboardLevel(LightLevel.High);
+                        break;
+                }
+            }
+
+        }
+        void SaveSettingsKBD()
+        {
+            if (rememberKBD.Checked)
+            {
+                LightLevel p = GetKeyboardLightlevel();
+                Console.WriteLine(p);
+                switch (p)
+                {
+                    case LightLevel.Off:
+                        Properties.Settings.Default.KBDLevel = 0;
+                        break;
+                    case LightLevel.Low:
+                        Properties.Settings.Default.KBDLevel = 1;
+                        break;
+                    case LightLevel.High:
+                        Properties.Settings.Default.KBDLevel = 2;
+                        break;
+                    case LightLevel.Unknown:
+                        Properties.Settings.Default.KBDLevel = -1;
+                        break;
+                }
+            }
+            Properties.Settings.Default.Save();
+        }
         void ReadSettings()
         {
             checkHDDReadDot.Checked = Properties.Settings.Default.HDDReadDot;
@@ -260,6 +304,9 @@ namespace LEDControl
             numericUpDown2.Value = Properties.Settings.Default.HDDDelay;
 
             checkHDD.Checked = Properties.Settings.Default.HDDDisable;
+
+            rememberKBD.Checked = Properties.Settings.Default.RememberKBD;
+
         }
 
         void SaveSettings()
@@ -288,6 +335,9 @@ namespace LEDControl
             Properties.Settings.Default.HDDDelay = (int)numericUpDown2.Value;
 
             Properties.Settings.Default.HDDDisable = checkHDD.Checked;
+
+            Properties.Settings.Default.RememberKBD = rememberKBD.Checked;
+           
 
             Properties.Settings.Default.Save();
         }
@@ -327,6 +377,10 @@ namespace LEDControl
                 MessageBox.Show(error_loading_driver, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
             }
+
+            PowerManager.IsMonitorOnChanged += new EventHandler(MonitorOnChanged);
+
+            ReadSettingsKBD();
 
             string[] cmd = Environment.GetCommandLineArgs();
             string prev = "";
@@ -397,6 +451,8 @@ namespace LEDControl
                 }
                 prev = s;
             }
+
+            if (rememberKBD.Checked) lightTimer.Enabled = true;
 
             if (!PerformanceCounterCategory.Exists("LogicalDisk"))
             {
@@ -739,6 +795,7 @@ namespace LEDControl
         {
             InProc = false;
             SaveSettings();
+            SaveSettingsKBD();
             NotifyIcon1.Visible = false;
             UnhookWindowsHookEx(_hookID);
             Environment.Exit(0);
@@ -750,6 +807,7 @@ namespace LEDControl
             e.Cancel = true;
             InProc = false;
             SaveSettings();
+            SaveSettingsKBD();
             NotifyIcon1.Visible = false;
             if (!checkBox5.Checked) UnhookWindowsHookEx(_hookID);
             Environment.Exit(0);
@@ -1013,8 +1071,11 @@ namespace LEDControl
                     CheckKeys();
                     CheckKeys();
                     CheckKeys();
+                    //SetKeyboardLevel(level);
+                    if (rememberKBD.Checked) lightTimer.Enabled = true;
                     break;
                 case PowerModes.Suspend:
+                    //SaveSettingsKBD();
                     if (workerHDD.IsBusy)
                     {
                         wasRunning = true;
@@ -1035,13 +1096,91 @@ namespace LEDControl
                 {
                     byte t = Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber);
                     byte _out = (byte)(Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber) | Byte.Parse(c.textBox2.Text, System.Globalization.NumberStyles.HexNumber));
-                    WriteByteToEC(TP_LED_OFFSET, _out);
+                    WriteByteToEC(0x0d, _out); //0x0d for keybaord illumination
                     System.Media.SystemSounds.Asterisk.Play();
                 }
             }
             while (dr == DialogResult.OK);
 
         }
+
+        private enum LightLevel
+        {
+            Off, Low, High, Unknown
+        }
+
+        private LightLevel GetKeyboardLightlevel()
+        {
+            byte c = 0x00;
+            ReadByteFromEC(0x0d, ref c);
+            if (c >= 0 && c < 50) return LightLevel.Off;
+            else if (c >= 50 && c < 100) return LightLevel.Low;
+            else if (c >= 100 && c < 150) return LightLevel.High;
+            else return LightLevel.Unknown;
+        }
+        
+        private void SetKeyboardLevel(LightLevel lvl)
+        {
+            byte _out = 0x00;
+            switch (lvl)
+            {
+                case LightLevel.Off:
+                    _out = 0x00 | 0x00;
+                    WriteByteToEC(0x0d, _out);
+                    break;
+                case LightLevel.Low:
+                    _out = 0x00 | 0x40;
+                    WriteByteToEC(0x0d, _out);
+                    break;
+                case LightLevel.High:
+                    _out = 0x00 | 0x80;
+                    WriteByteToEC(0x0d, _out);
+                    break;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+             byte c = 0x00;
+             ReadByteFromEC(0x0d, ref c);
+             MessageBox.Show(c.ToString());
+        }
         //end-
+        bool prevStat = true;
+        void MonitorOnChanged(object sender, EventArgs e)
+        {
+            if (rememberKBD.Checked)
+            {
+                if (prevStat != PowerManager.IsMonitorOn)
+                {
+                    prevStat = PowerManager.IsMonitorOn;
+                }
+                if (PowerManager.IsMonitorOn == true)
+                {
+                    var query = (from item in levels
+                                 group item by item into g
+                                 orderby g.Count() descending
+                                 select g.Key).First();
+                    SetKeyboardLevel(query);
+                    lightTimer.Enabled = true;
+                }
+                else lightTimer.Enabled = false;
+                //SaveSettingsKBD();
+            }
+        }
+        List<LightLevel> levels = new List<LightLevel>();
+        private void lightTimer_Tick(object sender, EventArgs e)
+        {
+            if (PowerManager.IsMonitorOn)
+            {
+                levels.Add(GetKeyboardLightlevel());
+                if (levels.Count > 5) levels.Remove(0);
+            }
+        }
+
+        private void rememberKBD_CheckedChanged(object sender, EventArgs e)
+        {
+            lightTimer.Enabled = rememberKBD.Checked;
+        }
     }
 }
