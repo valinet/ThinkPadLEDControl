@@ -1175,13 +1175,30 @@ namespace LEDControl
         bool prev_l = false;
         bool prev_v = false;
         LightLevel prev_c;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetWindowTextLength(IntPtr hWnd);
+
+        public static string GetText(IntPtr hWnd)
+        {
+            // Allocate correct string length first
+            int length = GetWindowTextLength(hWnd);
+            StringBuilder sb = new StringBuilder(length + 1);
+            GetWindowText(hWnd, sb, sb.Capacity);
+            return sb.ToString();
+        }
+
         private void lightTimer_Tick(object sender, EventArgs e)
         {
             bool full = false;
             if (checkTurnKBLightOff.Checked)
             {
+                string title = GetText(GetForegroundWindow());
                 foreach (Screen s in Screen.AllScreens)
-                    if (IsForegroundFullScreen())
+                    if (IsForegroundFullScreen() && title != "")
                     {
                         if (!prev_l) prev_c = GetKeyboardLightlevel();
                         if (!prev_l) prev_v = true;
@@ -1201,7 +1218,6 @@ namespace LEDControl
                     if (prev_v)
                     {
                         SetKeyboardLevel(LightLevel.Off);
-                        Console.WriteLine("pula");
                         prev_v = false;
                     }
                 }
