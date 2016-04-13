@@ -95,6 +95,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.rememberKBD = new System.Windows.Forms.CheckBox();
             this.lightTimer = new System.Windows.Forms.Timer(this.components);
+            this.checkTurnKBLightOff = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -343,7 +344,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 630);
+            this.label7.Location = new System.Drawing.Point(13, 660);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(424, 17);
@@ -352,7 +353,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 653);
+            this.button1.Location = new System.Drawing.Point(16, 683);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -381,24 +382,24 @@
             this.toolStripSeparator1,
             this.toolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 58);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 62);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(199, 26);
             this.toolStripMenuItem1.Text = "Show application";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(193, 24);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(199, 26);
             this.toolStripMenuItem2.Text = "Quit";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -643,7 +644,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(123, 653);
+            this.button4.Location = new System.Drawing.Point(123, 683);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(316, 28);
@@ -779,7 +780,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(16, 689);
+            this.button7.Location = new System.Drawing.Point(16, 719);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(215, 28);
@@ -790,7 +791,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(231, 689);
+            this.button8.Location = new System.Drawing.Point(231, 719);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 56;
@@ -816,11 +817,23 @@
             this.lightTimer.Interval = 1000;
             this.lightTimer.Tick += new System.EventHandler(this.lightTimer_Tick);
             // 
+            // checkTurnKBLightOff
+            // 
+            this.checkTurnKBLightOff.Location = new System.Drawing.Point(21, 634);
+            this.checkTurnKBLightOff.Margin = new System.Windows.Forms.Padding(4);
+            this.checkTurnKBLightOff.Name = "checkTurnKBLightOff";
+            this.checkTurnKBLightOff.Size = new System.Drawing.Size(436, 40);
+            this.checkTurnKBLightOff.TabIndex = 58;
+            this.checkTurnKBLightOff.Text = "Turn keyboard light off when applications go full screen (ideal for movie watchin" +
+    "g)";
+            this.checkTurnKBLightOff.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 730);
+            this.ClientSize = new System.Drawing.Size(453, 755);
+            this.Controls.Add(this.checkTurnKBLightOff);
             this.Controls.Add(this.rememberKBD);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -962,6 +975,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.CheckBox rememberKBD;
         private System.Windows.Forms.Timer lightTimer;
+        private System.Windows.Forms.CheckBox checkTurnKBLightOff;
     }
 }
 

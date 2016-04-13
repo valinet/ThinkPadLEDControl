@@ -274,5 +274,17 @@ namespace LEDControl.Properties {
                 this["KBDLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LightOffWhileFS {
+            get {
+                return ((bool)(this["LightOffWhileFS"]));
+            }
+            set {
+                this["LightOffWhileFS"] = value;
+            }
+        }
     }
 }

@@ -307,6 +307,8 @@ namespace LEDControl
 
             rememberKBD.Checked = Properties.Settings.Default.RememberKBD;
 
+            checkTurnKBLightOff.Checked = Properties.Settings.Default.LightOffWhileFS;
+
         }
 
         void SaveSettings()
@@ -337,7 +339,8 @@ namespace LEDControl
             Properties.Settings.Default.HDDDisable = checkHDD.Checked;
 
             Properties.Settings.Default.RememberKBD = rememberKBD.Checked;
-           
+
+            Properties.Settings.Default.LightOffWhileFS = checkTurnKBLightOff.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -1169,18 +1172,85 @@ namespace LEDControl
             }
         }
         List<LightLevel> levels = new List<LightLevel>();
+        bool prev_l = false;
+        bool prev_v = false;
+        LightLevel prev_c;
         private void lightTimer_Tick(object sender, EventArgs e)
         {
-            if (PowerManager.IsMonitorOn)
+            bool full = false;
+            if (checkTurnKBLightOff.Checked)
+            {
+                foreach (Screen s in Screen.AllScreens)
+                    if (IsForegroundFullScreen())
+                    {
+                        if (!prev_l) prev_c = GetKeyboardLightlevel();
+                        if (!prev_l) prev_v = true;
+                        prev_l = true;
+                        full = true;
+                    }
+            }
+            if (PowerManager.IsMonitorOn && (!checkTurnKBLightOff.Checked || !full))
             {
                 levels.Add(GetKeyboardLightlevel());
                 if (levels.Count > 5) levels.Remove(0);
+            }
+            if (checkTurnKBLightOff.Checked)
+            {
+                if (full)
+                {
+                    if (prev_v)
+                    {
+                        SetKeyboardLevel(LightLevel.Off);
+                        Console.WriteLine("pula");
+                        prev_v = false;
+                    }
+                }
+                else
+                {
+                    if (prev_l)
+                    {
+                        prev_l = false;
+                        LightLevel lvl = GetKeyboardLightlevel();
+                        if (lvl == LightLevel.Off) SetKeyboardLevel(prev_c);
+                    }
+                }
             }
         }
 
         private void rememberKBD_CheckedChanged(object sender, EventArgs e)
         {
             lightTimer.Enabled = rememberKBD.Checked;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(HandleRef hWnd, [In, Out] ref RECT rect);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        public static bool IsForegroundFullScreen()
+        {
+            return IsForegroundFullScreen(null);
+        }
+
+        public static bool IsForegroundFullScreen(Screen screen)
+        {
+            if (screen == null)
+            {
+                screen = Screen.PrimaryScreen;
+            }
+            RECT rect = new RECT();
+            GetWindowRect(new HandleRef(null, GetForegroundWindow()), ref rect);
+            return new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top).Contains(screen.Bounds);
         }
     }
 }
