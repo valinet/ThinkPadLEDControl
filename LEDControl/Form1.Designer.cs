@@ -96,6 +96,21 @@
             this.rememberKBD = new System.Windows.Forms.CheckBox();
             this.lightTimer = new System.Windows.Forms.Timer(this.components);
             this.checkTurnKBLightOff = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.checkHDDReadFn = new System.Windows.Forms.CheckBox();
+            this.checkHDDWriteFn = new System.Windows.Forms.CheckBox();
+            this.checkHDDFn = new System.Windows.Forms.CheckBox();
+            this.checkCLFn = new System.Windows.Forms.CheckBox();
+            this.checkNLFn = new System.Windows.Forms.CheckBox();
+            this.checkInvertFn = new System.Windows.Forms.CheckBox();
+            this.checkInvertSleep = new System.Windows.Forms.CheckBox();
+            this.checkInvertMicrophone = new System.Windows.Forms.CheckBox();
+            this.checkInvertDot = new System.Windows.Forms.CheckBox();
+            this.checkInvertPower = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -276,7 +291,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 149);
+            this.label5.Location = new System.Drawing.Point(16, 181);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(424, 17);
@@ -286,7 +301,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 177);
+            this.label6.Location = new System.Drawing.Point(17, 209);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(126, 17);
@@ -296,7 +311,7 @@
             // checkHDDReadPower
             // 
             this.checkHDDReadPower.AutoSize = true;
-            this.checkHDDReadPower.Location = new System.Drawing.Point(21, 202);
+            this.checkHDDReadPower.Location = new System.Drawing.Point(21, 234);
             this.checkHDDReadPower.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDReadPower.Name = "checkHDDReadPower";
             this.checkHDDReadPower.Size = new System.Drawing.Size(113, 21);
@@ -308,7 +323,7 @@
             // checkHDDReadDot
             // 
             this.checkHDDReadDot.AutoSize = true;
-            this.checkHDDReadDot.Location = new System.Drawing.Point(21, 230);
+            this.checkHDDReadDot.Location = new System.Drawing.Point(21, 262);
             this.checkHDDReadDot.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDReadDot.Name = "checkHDDReadDot";
             this.checkHDDReadDot.Size = new System.Drawing.Size(82, 21);
@@ -320,7 +335,7 @@
             // checkHDDReadMicrophone
             // 
             this.checkHDDReadMicrophone.AutoSize = true;
-            this.checkHDDReadMicrophone.Location = new System.Drawing.Point(21, 258);
+            this.checkHDDReadMicrophone.Location = new System.Drawing.Point(21, 290);
             this.checkHDDReadMicrophone.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDReadMicrophone.Name = "checkHDDReadMicrophone";
             this.checkHDDReadMicrophone.Size = new System.Drawing.Size(104, 21);
@@ -332,7 +347,7 @@
             // checkHDDReadSleep
             // 
             this.checkHDDReadSleep.AutoSize = true;
-            this.checkHDDReadSleep.Location = new System.Drawing.Point(21, 287);
+            this.checkHDDReadSleep.Location = new System.Drawing.Point(21, 319);
             this.checkHDDReadSleep.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDReadSleep.Name = "checkHDDReadSleep";
             this.checkHDDReadSleep.Size = new System.Drawing.Size(105, 21);
@@ -344,7 +359,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 660);
+            this.label7.Location = new System.Drawing.Point(13, 753);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(424, 17);
@@ -353,7 +368,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 683);
+            this.button1.Location = new System.Drawing.Point(16, 776);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -406,7 +421,7 @@
             // checkHDDWriteSleep
             // 
             this.checkHDDWriteSleep.AutoSize = true;
-            this.checkHDDWriteSleep.Location = new System.Drawing.Point(164, 287);
+            this.checkHDDWriteSleep.Location = new System.Drawing.Point(164, 319);
             this.checkHDDWriteSleep.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDWriteSleep.Name = "checkHDDWriteSleep";
             this.checkHDDWriteSleep.Size = new System.Drawing.Size(105, 21);
@@ -418,7 +433,7 @@
             // checkHDDWriteMicrophone
             // 
             this.checkHDDWriteMicrophone.AutoSize = true;
-            this.checkHDDWriteMicrophone.Location = new System.Drawing.Point(164, 258);
+            this.checkHDDWriteMicrophone.Location = new System.Drawing.Point(164, 290);
             this.checkHDDWriteMicrophone.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDWriteMicrophone.Name = "checkHDDWriteMicrophone";
             this.checkHDDWriteMicrophone.Size = new System.Drawing.Size(104, 21);
@@ -430,7 +445,7 @@
             // checkHDDWriteDot
             // 
             this.checkHDDWriteDot.AutoSize = true;
-            this.checkHDDWriteDot.Location = new System.Drawing.Point(164, 230);
+            this.checkHDDWriteDot.Location = new System.Drawing.Point(164, 262);
             this.checkHDDWriteDot.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDWriteDot.Name = "checkHDDWriteDot";
             this.checkHDDWriteDot.Size = new System.Drawing.Size(82, 21);
@@ -442,7 +457,7 @@
             // checkHDDWritePower
             // 
             this.checkHDDWritePower.AutoSize = true;
-            this.checkHDDWritePower.Location = new System.Drawing.Point(164, 202);
+            this.checkHDDWritePower.Location = new System.Drawing.Point(164, 234);
             this.checkHDDWritePower.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDWritePower.Name = "checkHDDWritePower";
             this.checkHDDWritePower.Size = new System.Drawing.Size(113, 21);
@@ -454,7 +469,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(160, 177);
+            this.label8.Location = new System.Drawing.Point(160, 209);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 17);
@@ -465,7 +480,7 @@
             // 
             this.checkHDDSleep.AutoSize = true;
             this.checkHDDSleep.Enabled = false;
-            this.checkHDDSleep.Location = new System.Drawing.Point(313, 287);
+            this.checkHDDSleep.Location = new System.Drawing.Point(313, 319);
             this.checkHDDSleep.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDSleep.Name = "checkHDDSleep";
             this.checkHDDSleep.Size = new System.Drawing.Size(105, 21);
@@ -477,7 +492,7 @@
             // 
             this.checkHDDMicrophone.AutoSize = true;
             this.checkHDDMicrophone.Enabled = false;
-            this.checkHDDMicrophone.Location = new System.Drawing.Point(313, 258);
+            this.checkHDDMicrophone.Location = new System.Drawing.Point(313, 290);
             this.checkHDDMicrophone.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDMicrophone.Name = "checkHDDMicrophone";
             this.checkHDDMicrophone.Size = new System.Drawing.Size(104, 21);
@@ -489,7 +504,7 @@
             // 
             this.checkHDDDot.AutoSize = true;
             this.checkHDDDot.Enabled = false;
-            this.checkHDDDot.Location = new System.Drawing.Point(313, 230);
+            this.checkHDDDot.Location = new System.Drawing.Point(313, 262);
             this.checkHDDDot.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDDot.Name = "checkHDDDot";
             this.checkHDDDot.Size = new System.Drawing.Size(82, 21);
@@ -501,7 +516,7 @@
             // 
             this.checkHDDPower.AutoSize = true;
             this.checkHDDPower.Enabled = false;
-            this.checkHDDPower.Location = new System.Drawing.Point(313, 202);
+            this.checkHDDPower.Location = new System.Drawing.Point(313, 234);
             this.checkHDDPower.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDDPower.Name = "checkHDDPower";
             this.checkHDDPower.Size = new System.Drawing.Size(113, 21);
@@ -512,7 +527,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(309, 177);
+            this.label9.Location = new System.Drawing.Point(309, 209);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(93, 17);
@@ -522,7 +537,7 @@
             // checkCLSleep
             // 
             this.checkCLSleep.AutoSize = true;
-            this.checkCLSleep.Location = new System.Drawing.Point(21, 494);
+            this.checkCLSleep.Location = new System.Drawing.Point(21, 555);
             this.checkCLSleep.Margin = new System.Windows.Forms.Padding(4);
             this.checkCLSleep.Name = "checkCLSleep";
             this.checkCLSleep.Size = new System.Drawing.Size(105, 21);
@@ -533,7 +548,7 @@
             // checkCLMicrophone
             // 
             this.checkCLMicrophone.AutoSize = true;
-            this.checkCLMicrophone.Location = new System.Drawing.Point(21, 465);
+            this.checkCLMicrophone.Location = new System.Drawing.Point(21, 526);
             this.checkCLMicrophone.Margin = new System.Windows.Forms.Padding(4);
             this.checkCLMicrophone.Name = "checkCLMicrophone";
             this.checkCLMicrophone.Size = new System.Drawing.Size(104, 21);
@@ -544,7 +559,7 @@
             // checkCLDot
             // 
             this.checkCLDot.AutoSize = true;
-            this.checkCLDot.Location = new System.Drawing.Point(21, 437);
+            this.checkCLDot.Location = new System.Drawing.Point(21, 498);
             this.checkCLDot.Margin = new System.Windows.Forms.Padding(4);
             this.checkCLDot.Name = "checkCLDot";
             this.checkCLDot.Size = new System.Drawing.Size(82, 21);
@@ -555,7 +570,7 @@
             // checkCLPower
             // 
             this.checkCLPower.AutoSize = true;
-            this.checkCLPower.Location = new System.Drawing.Point(21, 409);
+            this.checkCLPower.Location = new System.Drawing.Point(21, 470);
             this.checkCLPower.Margin = new System.Windows.Forms.Padding(4);
             this.checkCLPower.Name = "checkCLPower";
             this.checkCLPower.Size = new System.Drawing.Size(113, 21);
@@ -566,7 +581,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(17, 384);
+            this.label10.Location = new System.Drawing.Point(17, 445);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(120, 17);
@@ -576,7 +591,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(17, 555);
+            this.label11.Location = new System.Drawing.Point(17, 648);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 17);
@@ -585,7 +600,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(63, 553);
+            this.numericUpDown1.Location = new System.Drawing.Point(63, 646);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             2000,
@@ -611,7 +626,7 @@
             // checkHDD
             // 
             this.checkHDD.AutoSize = true;
-            this.checkHDD.Location = new System.Drawing.Point(21, 316);
+            this.checkHDD.Location = new System.Drawing.Point(21, 377);
             this.checkHDD.Margin = new System.Windows.Forms.Padding(4);
             this.checkHDD.Name = "checkHDD";
             this.checkHDD.Size = new System.Drawing.Size(265, 21);
@@ -622,7 +637,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(297, 311);
+            this.button2.Location = new System.Drawing.Point(297, 372);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(33, 28);
@@ -633,7 +648,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(139, 550);
+            this.button3.Location = new System.Drawing.Point(139, 643);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(33, 28);
@@ -644,7 +659,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(123, 683);
+            this.button4.Location = new System.Drawing.Point(123, 776);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(316, 28);
@@ -655,7 +670,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(139, 345);
+            this.button5.Location = new System.Drawing.Point(139, 406);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(33, 28);
@@ -666,7 +681,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(63, 347);
+            this.numericUpDown2.Location = new System.Drawing.Point(63, 408);
             this.numericUpDown2.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             2000,
@@ -690,7 +705,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(17, 350);
+            this.label12.Location = new System.Drawing.Point(17, 411);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(48, 17);
@@ -700,7 +715,7 @@
             // checkNLSleep
             // 
             this.checkNLSleep.AutoSize = true;
-            this.checkNLSleep.Location = new System.Drawing.Point(164, 494);
+            this.checkNLSleep.Location = new System.Drawing.Point(164, 555);
             this.checkNLSleep.Margin = new System.Windows.Forms.Padding(4);
             this.checkNLSleep.Name = "checkNLSleep";
             this.checkNLSleep.Size = new System.Drawing.Size(105, 21);
@@ -711,7 +726,7 @@
             // checkNLMicrophone
             // 
             this.checkNLMicrophone.AutoSize = true;
-            this.checkNLMicrophone.Location = new System.Drawing.Point(164, 465);
+            this.checkNLMicrophone.Location = new System.Drawing.Point(164, 526);
             this.checkNLMicrophone.Margin = new System.Windows.Forms.Padding(4);
             this.checkNLMicrophone.Name = "checkNLMicrophone";
             this.checkNLMicrophone.Size = new System.Drawing.Size(104, 21);
@@ -722,7 +737,7 @@
             // checkNLDot
             // 
             this.checkNLDot.AutoSize = true;
-            this.checkNLDot.Location = new System.Drawing.Point(164, 437);
+            this.checkNLDot.Location = new System.Drawing.Point(164, 498);
             this.checkNLDot.Margin = new System.Windows.Forms.Padding(4);
             this.checkNLDot.Name = "checkNLDot";
             this.checkNLDot.Size = new System.Drawing.Size(82, 21);
@@ -733,7 +748,7 @@
             // checkNLPower
             // 
             this.checkNLPower.AutoSize = true;
-            this.checkNLPower.Location = new System.Drawing.Point(164, 409);
+            this.checkNLPower.Location = new System.Drawing.Point(164, 470);
             this.checkNLPower.Margin = new System.Windows.Forms.Padding(4);
             this.checkNLPower.Name = "checkNLPower";
             this.checkNLPower.Size = new System.Drawing.Size(113, 21);
@@ -744,7 +759,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(160, 384);
+            this.label13.Location = new System.Drawing.Point(160, 445);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 17);
@@ -754,7 +769,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(21, 523);
+            this.checkBox5.Location = new System.Drawing.Point(21, 616);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(180, 21);
@@ -765,7 +780,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(212, 518);
+            this.button6.Location = new System.Drawing.Point(212, 611);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(33, 28);
@@ -780,7 +795,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(16, 719);
+            this.button7.Location = new System.Drawing.Point(16, 812);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(215, 28);
@@ -791,7 +806,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(231, 719);
+            this.button8.Location = new System.Drawing.Point(231, 812);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 56;
@@ -802,7 +817,7 @@
             // 
             // rememberKBD
             // 
-            this.rememberKBD.Location = new System.Drawing.Point(21, 586);
+            this.rememberKBD.Location = new System.Drawing.Point(21, 679);
             this.rememberKBD.Margin = new System.Windows.Forms.Padding(4);
             this.rememberKBD.Name = "rememberKBD";
             this.rememberKBD.Size = new System.Drawing.Size(436, 40);
@@ -819,7 +834,7 @@
             // 
             // checkTurnKBLightOff
             // 
-            this.checkTurnKBLightOff.Location = new System.Drawing.Point(21, 634);
+            this.checkTurnKBLightOff.Location = new System.Drawing.Point(21, 727);
             this.checkTurnKBLightOff.Margin = new System.Windows.Forms.Padding(4);
             this.checkTurnKBLightOff.Name = "checkTurnKBLightOff";
             this.checkTurnKBLightOff.Size = new System.Drawing.Size(436, 40);
@@ -828,11 +843,192 @@
     "g)";
             this.checkTurnKBLightOff.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(17, 159);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 17);
+            this.label14.TabIndex = 62;
+            this.label14.Text = "Fn Lock:";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(339, 153);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(100, 28);
+            this.button9.TabIndex = 61;
+            this.button9.Text = "Third state";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(231, 153);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(100, 28);
+            this.button10.TabIndex = 60;
+            this.button10.Text = "OFF";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(123, 153);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(100, 28);
+            this.button11.TabIndex = 59;
+            this.button11.Text = "ON";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // checkHDDReadFn
+            // 
+            this.checkHDDReadFn.AutoSize = true;
+            this.checkHDDReadFn.Location = new System.Drawing.Point(21, 348);
+            this.checkHDDReadFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkHDDReadFn.Name = "checkHDDReadFn";
+            this.checkHDDReadFn.Size = new System.Drawing.Size(80, 21);
+            this.checkHDDReadFn.TabIndex = 63;
+            this.checkHDDReadFn.Text = "Fn Lock";
+            this.checkHDDReadFn.UseVisualStyleBackColor = true;
+            this.checkHDDReadFn.CheckedChanged += new System.EventHandler(this.checkHDDReadFn_CheckedChanged);
+            // 
+            // checkHDDWriteFn
+            // 
+            this.checkHDDWriteFn.AutoSize = true;
+            this.checkHDDWriteFn.Location = new System.Drawing.Point(164, 348);
+            this.checkHDDWriteFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkHDDWriteFn.Name = "checkHDDWriteFn";
+            this.checkHDDWriteFn.Size = new System.Drawing.Size(80, 21);
+            this.checkHDDWriteFn.TabIndex = 64;
+            this.checkHDDWriteFn.Text = "Fn Lock";
+            this.checkHDDWriteFn.UseVisualStyleBackColor = true;
+            this.checkHDDWriteFn.CheckedChanged += new System.EventHandler(this.checkHDDWriteFn_CheckedChanged);
+            // 
+            // checkHDDFn
+            // 
+            this.checkHDDFn.AutoSize = true;
+            this.checkHDDFn.Enabled = false;
+            this.checkHDDFn.Location = new System.Drawing.Point(313, 348);
+            this.checkHDDFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkHDDFn.Name = "checkHDDFn";
+            this.checkHDDFn.Size = new System.Drawing.Size(80, 21);
+            this.checkHDDFn.TabIndex = 65;
+            this.checkHDDFn.Text = "Fn Lock";
+            this.checkHDDFn.UseVisualStyleBackColor = true;
+            // 
+            // checkCLFn
+            // 
+            this.checkCLFn.AutoSize = true;
+            this.checkCLFn.Location = new System.Drawing.Point(21, 585);
+            this.checkCLFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkCLFn.Name = "checkCLFn";
+            this.checkCLFn.Size = new System.Drawing.Size(80, 21);
+            this.checkCLFn.TabIndex = 66;
+            this.checkCLFn.Text = "Fn Lock";
+            this.checkCLFn.UseVisualStyleBackColor = true;
+            // 
+            // checkNLFn
+            // 
+            this.checkNLFn.AutoSize = true;
+            this.checkNLFn.Location = new System.Drawing.Point(164, 584);
+            this.checkNLFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkNLFn.Name = "checkNLFn";
+            this.checkNLFn.Size = new System.Drawing.Size(80, 21);
+            this.checkNLFn.TabIndex = 67;
+            this.checkNLFn.Text = "Fn Lock";
+            this.checkNLFn.UseVisualStyleBackColor = true;
+            // 
+            // checkInvertFn
+            // 
+            this.checkInvertFn.AutoSize = true;
+            this.checkInvertFn.Location = new System.Drawing.Point(313, 584);
+            this.checkInvertFn.Margin = new System.Windows.Forms.Padding(4);
+            this.checkInvertFn.Name = "checkInvertFn";
+            this.checkInvertFn.Size = new System.Drawing.Size(80, 21);
+            this.checkInvertFn.TabIndex = 73;
+            this.checkInvertFn.Text = "Fn Lock";
+            this.checkInvertFn.UseVisualStyleBackColor = true;
+            // 
+            // checkInvertSleep
+            // 
+            this.checkInvertSleep.AutoSize = true;
+            this.checkInvertSleep.Location = new System.Drawing.Point(313, 555);
+            this.checkInvertSleep.Margin = new System.Windows.Forms.Padding(4);
+            this.checkInvertSleep.Name = "checkInvertSleep";
+            this.checkInvertSleep.Size = new System.Drawing.Size(105, 21);
+            this.checkInvertSleep.TabIndex = 72;
+            this.checkInvertSleep.Text = "Sleep moon";
+            this.checkInvertSleep.UseVisualStyleBackColor = true;
+            // 
+            // checkInvertMicrophone
+            // 
+            this.checkInvertMicrophone.AutoSize = true;
+            this.checkInvertMicrophone.Location = new System.Drawing.Point(313, 526);
+            this.checkInvertMicrophone.Margin = new System.Windows.Forms.Padding(4);
+            this.checkInvertMicrophone.Name = "checkInvertMicrophone";
+            this.checkInvertMicrophone.Size = new System.Drawing.Size(104, 21);
+            this.checkInvertMicrophone.TabIndex = 71;
+            this.checkInvertMicrophone.Text = "Microphone";
+            this.checkInvertMicrophone.UseVisualStyleBackColor = true;
+            // 
+            // checkInvertDot
+            // 
+            this.checkInvertDot.AutoSize = true;
+            this.checkInvertDot.Location = new System.Drawing.Point(313, 498);
+            this.checkInvertDot.Margin = new System.Windows.Forms.Padding(4);
+            this.checkInvertDot.Name = "checkInvertDot";
+            this.checkInvertDot.Size = new System.Drawing.Size(82, 21);
+            this.checkInvertDot.TabIndex = 70;
+            this.checkInvertDot.Text = "Red Dot";
+            this.checkInvertDot.UseVisualStyleBackColor = true;
+            // 
+            // checkInvertPower
+            // 
+            this.checkInvertPower.AutoSize = true;
+            this.checkInvertPower.Location = new System.Drawing.Point(313, 470);
+            this.checkInvertPower.Margin = new System.Windows.Forms.Padding(4);
+            this.checkInvertPower.Name = "checkInvertPower";
+            this.checkInvertPower.Size = new System.Drawing.Size(113, 21);
+            this.checkInvertPower.TabIndex = 69;
+            this.checkInvertPower.Text = "Power button";
+            this.checkInvertPower.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(309, 445);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(89, 17);
+            this.label15.TabIndex = 68;
+            this.label15.Text = "Invert action:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 755);
+            this.ClientSize = new System.Drawing.Size(453, 950);
+            this.Controls.Add(this.checkInvertFn);
+            this.Controls.Add(this.checkInvertSleep);
+            this.Controls.Add(this.checkInvertMicrophone);
+            this.Controls.Add(this.checkInvertDot);
+            this.Controls.Add(this.checkInvertPower);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.checkNLFn);
+            this.Controls.Add(this.checkCLFn);
+            this.Controls.Add(this.checkHDDFn);
+            this.Controls.Add(this.checkHDDWriteFn);
+            this.Controls.Add(this.checkHDDReadFn);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.checkTurnKBLightOff);
             this.Controls.Add(this.rememberKBD);
             this.Controls.Add(this.button8);
@@ -976,6 +1172,21 @@
         private System.Windows.Forms.CheckBox rememberKBD;
         private System.Windows.Forms.Timer lightTimer;
         private System.Windows.Forms.CheckBox checkTurnKBLightOff;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.CheckBox checkHDDReadFn;
+        private System.Windows.Forms.CheckBox checkHDDWriteFn;
+        private System.Windows.Forms.CheckBox checkHDDFn;
+        private System.Windows.Forms.CheckBox checkCLFn;
+        private System.Windows.Forms.CheckBox checkNLFn;
+        private System.Windows.Forms.CheckBox checkInvertFn;
+        private System.Windows.Forms.CheckBox checkInvertSleep;
+        private System.Windows.Forms.CheckBox checkInvertMicrophone;
+        private System.Windows.Forms.CheckBox checkInvertDot;
+        private System.Windows.Forms.CheckBox checkInvertPower;
+        private System.Windows.Forms.Label label15;
     }
 }
 

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.ApplicationServices;
+using CoreAudioApi;
 
 namespace LEDControl
 {
@@ -192,13 +193,13 @@ namespace LEDControl
         #region ToggleLEDs
         public enum LEDs
         {
-            Power, Microphone, RedDot, Sleep
+            Power, Microphone, RedDot, Sleep, Fn
         }
         public enum PowerStates
         {
             On, Off, Blink
         }
-        bool LED(LEDs which, PowerStates what)
+        bool LED(LEDs which, PowerStates what, bool mayOverride = true)
         {
             byte led = 0xFF;
             byte power = 0xFF;
@@ -206,15 +207,43 @@ namespace LEDControl
             {
                 case LEDs.Power:
                     led = 0x00;
+                    if (checkInvertPower.Checked && mayOverride)
+                    {
+                        if (what == PowerStates.On) what = PowerStates.Off;
+                        else if (what == PowerStates.Off) what = PowerStates.On;
+                    }
                     break;
                 case LEDs.Microphone:
                     led = 0x0E;
+                    if (checkInvertMicrophone.Checked && mayOverride)
+                    {
+                        if (what == PowerStates.On) what = PowerStates.Off;
+                        else if (what == PowerStates.Off) what = PowerStates.On;
+                    }
                     break;
                 case LEDs.RedDot:
                     led = 0x0A;
+                    if (checkInvertDot.Checked && mayOverride)
+                    {
+                        if (what == PowerStates.On) what = PowerStates.Off;
+                        else if (what == PowerStates.Off) what = PowerStates.On;
+                    }
                     break;
                 case LEDs.Sleep:
                     led = 0x07;
+                    if (checkInvertSleep.Checked && mayOverride)
+                    {
+                        if (what == PowerStates.On) what = PowerStates.Off;
+                        else if (what == PowerStates.Off) what = PowerStates.On;
+                    }
+                    break;
+                case LEDs.Fn:
+                    led = 0x06;
+                    if (checkInvertFn.Checked && mayOverride)
+                    {
+                        if (what == PowerStates.On) what = PowerStates.Off;
+                        else if (what == PowerStates.Off) what = PowerStates.On;
+                    }
                     break;
             }
             switch (what)
@@ -284,21 +313,32 @@ namespace LEDControl
             checkHDDReadPower.Checked = Properties.Settings.Default.HDDReadPower;
             checkHDDReadMicrophone.Checked = Properties.Settings.Default.HDDReadMicrophone;
             checkHDDReadSleep.Checked = Properties.Settings.Default.HDDReadSleep;
+            checkHDDReadFn.Checked = Properties.Settings.Default.HDDReadFn;
 
             checkHDDWriteDot.Checked = Properties.Settings.Default.HDDWriteDot;
             checkHDDWritePower.Checked = Properties.Settings.Default.HDDWritePower;
             checkHDDWriteMicrophone.Checked = Properties.Settings.Default.HDDWriteMicrophone;
             checkHDDWriteSleep.Checked = Properties.Settings.Default.HDDWriteSleep;
+            checkHDDWriteFn.Checked = Properties.Settings.Default.HDDWriteFn;
 
             checkCLDot.Checked = Properties.Settings.Default.CLDot;
             checkCLMicrophone.Checked = Properties.Settings.Default.CLMicrophone;
             checkCLPower.Checked = Properties.Settings.Default.CLPower;
             checkCLSleep.Checked = Properties.Settings.Default.CLSleep;
+            checkCLFn.Checked = Properties.Settings.Default.CLFn;
 
             checkNLDot.Checked = Properties.Settings.Default.NLDot;
             checkNLMicrophone.Checked = Properties.Settings.Default.NLMicrophone;
             checkNLPower.Checked = Properties.Settings.Default.NLPower;
             checkNLSleep.Checked = Properties.Settings.Default.NLSleep;
+            checkNLFn.Checked = Properties.Settings.Default.NLFn;
+
+            checkInvertDot.Checked = Properties.Settings.Default.InvertDot;
+            checkInvertMicrophone.Checked = Properties.Settings.Default.InvertMicrophone;
+            checkInvertPower.Checked = Properties.Settings.Default.InvertPower;
+            checkInvertSleep.Checked = Properties.Settings.Default.InvertSleep;
+            checkInvertFn.Checked = Properties.Settings.Default.InvertFn;
+
 
             numericUpDown1.Value = Properties.Settings.Default.CapsLockDelay;
             numericUpDown2.Value = Properties.Settings.Default.HDDDelay;
@@ -317,21 +357,31 @@ namespace LEDControl
             Properties.Settings.Default.HDDReadPower = checkHDDReadPower.Checked;
             Properties.Settings.Default.HDDReadMicrophone = checkHDDReadMicrophone.Checked;
             Properties.Settings.Default.HDDReadSleep = checkHDDReadSleep.Checked;
+            Properties.Settings.Default.HDDReadFn = checkHDDReadFn.Checked;
 
             Properties.Settings.Default.HDDWriteDot = checkHDDWriteDot.Checked;
             Properties.Settings.Default.HDDWritePower = checkHDDWritePower.Checked;
             Properties.Settings.Default.HDDWriteMicrophone = checkHDDWriteMicrophone.Checked;
             Properties.Settings.Default.HDDWriteSleep = checkHDDWriteSleep.Checked;
+            Properties.Settings.Default.HDDWriteFn = checkHDDWriteFn.Checked;
 
             Properties.Settings.Default.CLDot = checkCLDot.Checked;
             Properties.Settings.Default.CLMicrophone = checkCLMicrophone.Checked;
             Properties.Settings.Default.CLPower = checkCLPower.Checked;
             Properties.Settings.Default.CLSleep = checkCLSleep.Checked;
+            Properties.Settings.Default.CLFn = checkCLFn.Checked;
 
             Properties.Settings.Default.NLDot = checkNLDot.Checked;
             Properties.Settings.Default.NLMicrophone = checkNLMicrophone.Checked;
             Properties.Settings.Default.NLPower = checkNLPower.Checked;
             Properties.Settings.Default.NLSleep = checkNLSleep.Checked;
+            Properties.Settings.Default.NLFn = checkNLFn.Checked;
+
+            Properties.Settings.Default.InvertDot = checkInvertDot.Checked;
+            Properties.Settings.Default.InvertMicrophone = checkInvertMicrophone.Checked;
+            Properties.Settings.Default.InvertPower = checkInvertPower.Checked;
+            Properties.Settings.Default.InvertSleep = checkInvertSleep.Checked;
+            Properties.Settings.Default.InvertFn = checkInvertFn.Checked;
 
             Properties.Settings.Default.CapsLockDelay = (int)numericUpDown1.Value;
             Properties.Settings.Default.HDDDelay = (int)numericUpDown2.Value;
@@ -371,6 +421,13 @@ namespace LEDControl
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
 
             ReadSettings();
 
@@ -415,6 +472,9 @@ namespace LEDControl
                             case "LEDSleep":
                                 LED(LEDs.Sleep, PowerStates.On);
                                 break;
+                            case "LEDFnLock":
+                                LED(LEDs.Fn, PowerStates.On);
+                                break;
                         }
                         break;
                     case "off":
@@ -432,6 +492,9 @@ namespace LEDControl
                             case "LEDSleep":
                                 LED(LEDs.Sleep, PowerStates.Off);
                                 break;
+                            case "LEDFnLock":
+                                LED(LEDs.Fn, PowerStates.Off);
+                                break;
                         }
                         break;
                     case "third":
@@ -448,6 +511,9 @@ namespace LEDControl
                                 break;
                             case "LEDSleep":
                                 LED(LEDs.Sleep, PowerStates.Blink);
+                                break;
+                            case "LEDFnLock":
+                                LED(LEDs.Fn, PowerStates.Blink);
                                 break;
                         }
                         break;
@@ -587,6 +653,7 @@ namespace LEDControl
                             if (checkHDDReadMicrophone.Checked) LED(LEDs.Microphone, PowerStates.On);
                             if (checkHDDReadPower.Checked) LED(LEDs.Power, PowerStates.On);
                             if (checkHDDReadSleep.Checked) LED(LEDs.Sleep, PowerStates.On);
+                            if (checkHDDReadFn.Checked) LED(LEDs.Fn, PowerStates.On);
                         }
                         if (W > 0)
                         {
@@ -594,6 +661,7 @@ namespace LEDControl
                             if (checkHDDWriteMicrophone.Checked) LED(LEDs.Microphone, PowerStates.On);
                             if (checkHDDWritePower.Checked) LED(LEDs.Power, PowerStates.On);
                             if (checkHDDWriteSleep.Checked) LED(LEDs.Sleep, PowerStates.On);
+                            if (checkHDDWriteFn.Checked) LED(LEDs.Fn, PowerStates.On);
                         }
                     }
                     else
@@ -604,6 +672,7 @@ namespace LEDControl
                             if (checkHDDReadMicrophone.Checked) LED(LEDs.Microphone, PowerStates.Off);
                             if (checkHDDReadPower.Checked) LED(LEDs.Power, PowerStates.Off);
                             if (checkHDDReadSleep.Checked) LED(LEDs.Sleep, PowerStates.Off);
+                            if (checkHDDReadFn.Checked) LED(LEDs.Fn, PowerStates.Off);
                         }
                         if (W <= 0)
                         {
@@ -611,6 +680,7 @@ namespace LEDControl
                             if (checkHDDWriteMicrophone.Checked) LED(LEDs.Microphone, PowerStates.Off);
                             if (checkHDDWritePower.Checked) LED(LEDs.Power, PowerStates.Off);
                             if (checkHDDWriteSleep.Checked) LED(LEDs.Sleep, PowerStates.Off);
+                            if (checkHDDWriteFn.Checked) LED(LEDs.Fn, PowerStates.Off);
                         }
                     }
 
@@ -668,6 +738,7 @@ namespace LEDControl
                 if (checkCLPower.Checked) LED(LEDs.Power, PowerStates.On);
                 if (checkCLMicrophone.Checked) LED(LEDs.Microphone, PowerStates.On);
                 if (checkCLSleep.Checked) LED(LEDs.Sleep, PowerStates.On);
+                if (checkCLFn.Checked) LED(LEDs.Fn, PowerStates.On);
             }
             else
             {
@@ -675,6 +746,7 @@ namespace LEDControl
                 if (checkCLPower.Checked) LED(LEDs.Power, PowerStates.Off);
                 if (checkCLMicrophone.Checked) LED(LEDs.Microphone, PowerStates.Off);
                 if (checkCLSleep.Checked) LED(LEDs.Sleep, PowerStates.Off);
+                if (checkCLFn.Checked) LED(LEDs.Fn, PowerStates.Off);
             }
             if (isNumLock())
             {
@@ -682,6 +754,7 @@ namespace LEDControl
                 if (checkNLPower.Checked) LED(LEDs.Power, PowerStates.On);
                 if (checkNLMicrophone.Checked) LED(LEDs.Microphone, PowerStates.On);
                 if (checkNLSleep.Checked) LED(LEDs.Sleep, PowerStates.On);
+                if (checkNLFn.Checked) LED(LEDs.Fn, PowerStates.On);
             }
             else
             {
@@ -689,6 +762,7 @@ namespace LEDControl
                 if (checkNLPower.Checked) LED(LEDs.Power, PowerStates.Off);
                 if (checkNLMicrophone.Checked) LED(LEDs.Microphone, PowerStates.Off);
                 if (checkNLSleep.Checked) LED(LEDs.Sleep, PowerStates.Off);
+                if (checkNLFn.Checked) LED(LEDs.Fn, PowerStates.Off);
             }
         }
         private void DoOnUIThread(MethodInvoker d)
@@ -840,6 +914,8 @@ namespace LEDControl
                 checkHDDWritePower.Enabled = false;
                 checkHDDWriteMicrophone.Enabled = false;
                 checkHDDWriteSleep.Enabled = false;
+                checkHDDReadFn.Enabled = false;
+                checkHDDWriteFn.Enabled = false;
                 numericUpDown2.Enabled = false;
                 caps_lock = caps_lock_delay;
                 NotifyIcon1.Icon = LEDControl.Properties.Resources.IdleIcon;
@@ -855,6 +931,8 @@ namespace LEDControl
                 checkHDDWritePower.Enabled = true;
                 checkHDDWriteMicrophone.Enabled = true;
                 checkHDDWriteSleep.Enabled = true;
+                checkHDDReadFn.Enabled = true;
+                checkHDDWriteFn.Enabled = true;
                 numericUpDown2.Enabled = true;
                 NotifyIcon1.Icon = LEDControl.Properties.Resources.IdleIcon;
                 if (IsAdministrator() || checkBox5.Checked)
@@ -908,6 +986,7 @@ namespace LEDControl
                         if (frm.checkCLPower.Checked) frm.LED(LEDs.Power, PowerStates.On);
                         if (frm.checkCLMicrophone.Checked) frm.LED(LEDs.Microphone, PowerStates.On);
                         if (frm.checkCLSleep.Checked) frm.LED(LEDs.Sleep, PowerStates.On);
+                        if (frm.checkCLFn.Checked) frm.LED(LEDs.Fn, PowerStates.On);
                     }
                     else
                     {
@@ -915,6 +994,7 @@ namespace LEDControl
                         if (frm.checkCLPower.Checked) frm.LED(LEDs.Power, PowerStates.Off);
                         if (frm.checkCLMicrophone.Checked) frm.LED(LEDs.Microphone, PowerStates.Off);
                         if (frm.checkCLSleep.Checked) frm.LED(LEDs.Sleep, PowerStates.Off);
+                        if (frm.checkCLFn.Checked) frm.LED(LEDs.Fn, PowerStates.Off);
                     }
                 }
                 if (key == Keys.NumLock)
@@ -925,6 +1005,7 @@ namespace LEDControl
                         if (frm.checkNLPower.Checked) frm.LED(LEDs.Power, PowerStates.On);
                         if (frm.checkNLMicrophone.Checked) frm.LED(LEDs.Microphone, PowerStates.On);
                         if (frm.checkNLSleep.Checked) frm.LED(LEDs.Sleep, PowerStates.On);
+                        if (frm.checkNLFn.Checked) frm.LED(LEDs.Fn, PowerStates.On);
                     }
                     else
                     {
@@ -932,6 +1013,7 @@ namespace LEDControl
                         if (frm.checkNLPower.Checked) frm.LED(LEDs.Power, PowerStates.Off);
                         if (frm.checkNLMicrophone.Checked) frm.LED(LEDs.Microphone, PowerStates.Off);
                         if (frm.checkNLSleep.Checked) frm.LED(LEDs.Sleep, PowerStates.Off);
+                        if (frm.checkNLFn.Checked) frm.LED(LEDs.Fn, PowerStates.Off);
                     }
                 }
                     //Console.WriteLine((Keys)vkCode);
@@ -1010,10 +1092,12 @@ namespace LEDControl
                 checkCLPower.Enabled = false;
                 checkCLMicrophone.Enabled = false;
                 checkCLSleep.Enabled = false;
+                checkCLFn.Enabled = false;
                 checkNLDot.Enabled = false;
                 checkNLPower.Enabled = false;
                 checkNLMicrophone.Enabled = false;
                 checkNLSleep.Enabled = false;
+                checkNLFn.Enabled = false;
                 numericUpDown1.Enabled = false;
                 if (checkHDD.Checked) InProc = false;
                 UnhookWindowsHookEx(_hookID);
@@ -1025,10 +1109,12 @@ namespace LEDControl
                 checkCLPower.Enabled = true;
                 checkCLMicrophone.Enabled = true;
                 checkCLSleep.Enabled = true;
+                checkCLFn.Enabled = true;
                 checkNLDot.Enabled = true;
                 checkNLPower.Enabled = true;
                 checkNLMicrophone.Enabled = true;
                 checkNLSleep.Enabled = true;
+                checkNLFn.Enabled = true;
                 numericUpDown1.Enabled = true;
                 _hookID = SetHook(_proc);
                 if (checkHDD.Checked)
@@ -1099,7 +1185,7 @@ namespace LEDControl
                 {
                     byte t = Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber);
                     byte _out = (byte)(Byte.Parse(c.textBox1.Text, System.Globalization.NumberStyles.HexNumber) | Byte.Parse(c.textBox2.Text, System.Globalization.NumberStyles.HexNumber));
-                    WriteByteToEC(0x0d, _out); //0x0d for keybaord illumination
+                    WriteByteToEC(Byte.Parse(c.textBox3.Text, System.Globalization.NumberStyles.HexNumber), _out); //0x0d for keybaord illumination
                     System.Media.SystemSounds.Asterisk.Play();
                 }
             }
@@ -1191,6 +1277,28 @@ namespace LEDControl
             return sb.ToString();
         }
 
+        private List<MMDevice> gMicrophoneDevices = new List<MMDevice>();//global variable
+        private bool findMicrophones()
+        {
+            MMDeviceEnumerator DevEnum = new MMDeviceEnumerator();
+            MMDeviceCollection devices = DevEnum.EnumerateAudioEndPoints(EDataFlow.eCapture, EDeviceState.DEVICE_STATE_ACTIVE);
+            for (int i = 0; i < devices.Count; i++)
+            {
+                MMDevice deviceAt = devices[i];
+                if (deviceAt.FriendlyName.ToLower() == "microphone array")
+                    gMicrophoneDevices.Add(deviceAt);
+            }
+            if (gMicrophoneDevices.Count == 0)
+                return false;
+            else return true;
+        }
+        private bool isVolumeMute()
+        {
+            MMDeviceEnumerator devEnum = new MMDeviceEnumerator();
+            MMDevice defaultDevice = devEnum.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia);
+            return defaultDevice.AudioEndpointVolume.Mute;
+        }
+
         private void lightTimer_Tick(object sender, EventArgs e)
         {
             bool full = false;
@@ -1219,6 +1327,9 @@ namespace LEDControl
                     {
                         SetKeyboardLevel(LightLevel.Off);
                         prev_v = false;
+                        LED(LEDs.Microphone, PowerStates.Off, false);
+                        LED(LEDs.Fn, PowerStates.Off, false);
+                        LED(LEDs.Power, PowerStates.Off, false);
                     }
                 }
                 else
@@ -1228,6 +1339,11 @@ namespace LEDControl
                         prev_l = false;
                         LightLevel lvl = GetKeyboardLightlevel();
                         if (lvl == LightLevel.Off) SetKeyboardLevel(prev_c);
+                        gMicrophoneDevices.Clear();
+                        findMicrophones();
+                        if (gMicrophoneDevices[0].AudioEndpointVolume.Mute == true) LED(LEDs.Microphone, PowerStates.On, false);
+                        LED(LEDs.Power, PowerStates.On, false);
+                        CheckKeys();
                     }
                 }
             }
@@ -1267,6 +1383,43 @@ namespace LEDControl
             RECT rect = new RECT();
             GetWindowRect(new HandleRef(null, GetForegroundWindow()), ref rect);
             return new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top).Contains(screen.Bounds);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (!LED(LEDs.Fn, PowerStates.On)) MessageBox.Show(error_text_buttons, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (!LED(LEDs.Fn, PowerStates.Off)) MessageBox.Show(error_text_buttons, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (!LED(LEDs.Fn, PowerStates.Blink)) MessageBox.Show(error_text_buttons, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void checkHDDReadFn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkHDDReadFn.Checked && checkHDDWriteFn.Checked) checkHDDFn.CheckState = CheckState.Checked;
+            else
+            {
+                if (checkHDDReadFn.Checked || checkHDDWriteFn.Checked) checkHDDFn.CheckState = CheckState.Indeterminate;
+                else checkHDDFn.CheckState = CheckState.Unchecked;
+            }
+
+        }
+
+        private void checkHDDWriteFn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkHDDReadFn.Checked && checkHDDWriteFn.Checked) checkHDDFn.CheckState = CheckState.Checked;
+            else
+            {
+                if (checkHDDReadFn.Checked || checkHDDWriteFn.Checked) checkHDDFn.CheckState = CheckState.Indeterminate;
+                else checkHDDFn.CheckState = CheckState.Unchecked;
+            }
+
         }
     }
 }
