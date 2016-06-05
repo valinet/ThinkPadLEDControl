@@ -525,19 +525,28 @@ namespace LEDControl
 
             if (!PerformanceCounterCategory.Exists("LogicalDisk"))
             {
-                MessageBox.Show("Object LogicalDisk does not exist!", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
+                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Object LogicalDisk does not exist!", ToolTipIcon.Warning);
+                checkHDD.Checked = true;
+                checkHDD.Enabled = false;
+                /*MessageBox.Show("Object LogicalDisk does not exist!", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);*/
             }
 
             if (!PerformanceCounterCategory.CounterExists("Disk Read Bytes/sec", "LogicalDisk"))
             {
-                MessageBox.Show("Disk Read Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
+                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Disk Read Counter not found!", ToolTipIcon.Warning);
+                checkHDD.Checked = true;
+                checkHDD.Enabled = false;
+                /*MessageBox.Show("Disk Read Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);*/
             }
             if (!PerformanceCounterCategory.CounterExists("Disk Write Bytes/sec", "LogicalDisk"))
             {
-                MessageBox.Show("Disk Write Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
+                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Disk Write Counter not found!", ToolTipIcon.Warning);
+                checkHDD.Checked = true;
+                checkHDD.Enabled = false;
+                /*MessageBox.Show("Disk Write Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);*/
             }
 
             ReadCounter = new PerformanceCounter("LogicalDisk", "Disk Read Bytes/sec", "_Total");
@@ -892,7 +901,7 @@ namespace LEDControl
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ThinkPad LED Control " + Application.ProductVersion + "\r\n\r\nUses code from the great open-source project TPFanControl, available at https://sourceforge.net/projects/tp4xfancontrol/. Contains demo code from Windows Dev Center available at https://code.msdn.microsoft.com/windowsapps/Disk-Activity-Task-bar-af8ae245, and http://blogs.msdn.com/b/toub/archive/2006/05/03/589423.aspx.\r\n\r\nBased on code from the Differentiated System Description Table of the ThinkPad W540/W541 from Lenovo, disassambled using iASL.\r\n\r\nCopyright(c) 2006-2016 ValiNet (Valentin-Gabriel Radu)\r\n\r\nPermission to use, copy, modify, and / or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\r\nOSS", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("ThinkPad LEDs Control " + Application.ProductVersion + "\r\n\r\nUses code from the great open-source project TPFanControl, available at https://sourceforge.net/projects/tp4xfancontrol/. Contains demo code from Windows Dev Center available at https://code.msdn.microsoft.com/windowsapps/Disk-Activity-Task-bar-af8ae245, and http://blogs.msdn.com/b/toub/archive/2006/05/03/589423.aspx.\r\n\r\nBased on code from the Differentiated System Description Table of the ThinkPad W540/W541 from Lenovo, disassambled using iASL.\r\n\r\nCopyright(c) 2006-2016 ValiNet (Valentin-Gabriel Radu)\r\n\r\nPermission to use, copy, modify, and / or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\r\nOSS", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)

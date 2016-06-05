@@ -57,6 +57,7 @@
   <ItemGroup>
     <Reference Include="CoreAudioApi">
       <HintPath>.\CoreAudioApi.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -81,6 +82,7 @@
     <Compile Include="Custom.Designer.cs">
       <DependentUpon>Custom.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmbeddedAssembly.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CoreAudioApi.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
