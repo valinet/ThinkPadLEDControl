@@ -16,7 +16,9 @@ namespace LEDControl
         static void Main()
         {
             string resource1 = "LEDControl.CoreAudioApi.dll";
+            string resource2 = "LEDControl.Microsoft.WindowsAPICodePack.dll";
             EmbeddedAssembly.Load(resource1, "CoreAudioApi.dll");
+            EmbeddedAssembly.Load(resource2, "Microsoft.WindowsAPICodePack.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
             Application.EnableVisualStyles();
