@@ -1169,7 +1169,11 @@ namespace LEDControl
                     CheckKeys();
                     CheckKeys();
                     CheckKeys();
-                    //SetKeyboardLevel(level);
+                    var query = (from item in levels
+                                 group item by item into g
+                                 orderby g.Count() descending
+                                 select g.Key).First();
+                    SetKeyboardLevel(query);
                     if (rememberKBD.Checked) lightTimer.Enabled = true;
                     break;
                 case PowerModes.Suspend:
@@ -1314,8 +1318,9 @@ namespace LEDControl
             if (checkTurnKBLightOff.Checked)
             {
                 string title = GetText(GetForegroundWindow());
+                Console.WriteLine(title);
                 foreach (Screen s in Screen.AllScreens)
-                    if (IsForegroundFullScreen() && title != "")
+                    if (IsForegroundFullScreen() && title != "" && title != "Windows Default Lock Screen")
                     {
                         if (!prev_l) prev_c = GetKeyboardLightlevel();
                         if (!prev_l) prev_v = true;
@@ -1326,7 +1331,7 @@ namespace LEDControl
             if (PowerManager.IsMonitorOn && (!checkTurnKBLightOff.Checked || !full))
             {
                 levels.Add(GetKeyboardLightlevel());
-                if (levels.Count > 5) levels.Remove(0);
+                if (levels.Count > 5) levels.RemoveAt(0);
             }
             if (checkTurnKBLightOff.Checked)
             {
