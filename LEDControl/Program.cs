@@ -24,6 +24,13 @@ namespace LEDControl
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             if ((Properties.Settings.Default.FirstRun || Control.ModifierKeys == Keys.Shift) && !Environment.GetCommandLineArgs().Contains("driver"))
             {
                 Welcome w = new Welcome();
