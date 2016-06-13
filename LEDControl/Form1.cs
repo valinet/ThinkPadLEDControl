@@ -50,7 +50,10 @@ namespace LEDControl
                 byte data = 0;
                 try
                 {
-                    data = TVicPort.ReadPort(port);
+                    if (Properties.Settings.Default.Driver == 0)
+                        data = ols.ReadIoPortByte(port);
+                    else if (Properties.Settings.Default.Driver == 1)
+                        data = TVicPort.ReadPort(port);
                 }
                 catch
                 {
@@ -77,7 +80,10 @@ namespace LEDControl
             // write byte via WINIO.SYS
             try
             {
-                TVicPort.WritePort(port, data);
+                if (Properties.Settings.Default.Driver == 0)
+                    ols.WriteIoPortByte(port, data);
+                else if (Properties.Settings.Default.Driver == 1)
+                    TVicPort.WritePort(port, data);
             }
             catch
             {
@@ -91,7 +97,10 @@ namespace LEDControl
             byte data = 0;
             try
             {
-                data = TVicPort.ReadPort(port);
+                if (Properties.Settings.Default.Driver == 0)
+                    data = ols.ReadIoPortByte(port);
+                else if (Properties.Settings.Default.Driver == 1)
+                    data = TVicPort.ReadPort(port);
                 pdata = data;
             }
             catch
@@ -417,7 +426,10 @@ namespace LEDControl
             if (this.WindowState == FormWindowState.Minimized) this.Hide();
         }
 
-        const string error_loading_driver = "There was an error loading the driver. Please reinstall the application or reboot the machine.";
+        Ols ols;
+        const string error_loading_driver_tvicport = "There was an error loading the TVicPort driver. Please reinstall the application or reboot the machine.\r\n\r\nAlternatively, try running the application using the WinRing0 driver. Hold down [SHIFT] while launching the application in order to select another driver to run the application with.";
+        const string error_loading_driver_winring = "There was an error loading the WinRing0 driver. Please reinstall the application or reboot the machine.\r\n\r\nAlternatively, you could try installing and using the TVicPort driver. Hold down [SHIFT] while launching the application in order to select another driver to run the application with.";
+        const string error_winring_running_standard = "When running using the WinRing0 driver, this application requires administrative privileges at all times. From within the UI interface, you can configure the application to run at startup using administartive privileges without displaying this prompt.\r\n\r\nWould you like to attempt to relaunch this application with administrative privileges now?\r\n\r\nIf you would like to choose which driver to use again, click No in this request, and hold down the [SHIFT] key while launching again the application.";
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -429,21 +441,87 @@ namespace LEDControl
                 Properties.Settings.Default.Save();
             }
 
-            ReadSettings();
-
-            TVicPort.OpenTVicPort();
-            if (TVicPort.IsDriverOpened() == 0)
-            {
-                MessageBox.Show(error_loading_driver, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
-
-            PowerManager.IsMonitorOnChanged += new EventHandler(MonitorOnChanged);
-
-            ReadSettingsKBD();
-
             string[] cmd = Environment.GetCommandLineArgs();
             string prev = "";
+            foreach (string s in cmd)
+            {
+                switch (s)
+                {
+                    case "0":
+                        if (prev == "driver")
+                        {
+                            Properties.Settings.Default.Driver = 0;
+                            Properties.Settings.Default.Save();
+                        }
+                        break;
+                    case "1":
+                        if (prev == "driver")
+                        {
+                            Properties.Settings.Default.Driver = 1;
+                            Properties.Settings.Default.Save();
+                        }
+                        break;
+                }
+                prev = s;
+            }
+
+            if (Properties.Settings.Default.Driver == 0)
+            {
+                if (!IsAdministrator())
+                {
+                    DialogResult dr;
+                    if (cmd.Contains("runas")) dr = DialogResult.Yes;
+                    else dr = MessageBox.Show(error_winring_running_standard, "ThinkPad LEDs Control", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (dr == DialogResult.Yes)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.UseShellExecute = true;
+                        startInfo.WorkingDirectory = Environment.CurrentDirectory;
+                        startInfo.FileName = Application.ExecutablePath;
+                        startInfo.Verb = "runas";
+                        string args = "";
+                        for (int i = 1; i < cmd.Length; i++)
+                        {
+                            if (i == cmd.Length - 1) args += cmd[i];
+                            else args += cmd[i] + " ";
+                        }
+                        startInfo.Arguments = args;
+
+                        try
+                        {
+                            Process.Start(startInfo);
+                        }
+                        catch
+                        {
+                        }
+                        finally
+                        {
+                            Environment.Exit(0);
+                        }
+
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                }
+                ols = new Ols();
+                if (ols.GetStatus() != (uint)Ols.Status.NO_ERROR)
+                {
+                    MessageBox.Show(error_loading_driver_winring, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
+                }
+            }
+            else if (Properties.Settings.Default.Driver == 1)
+            {
+                TVicPort.OpenTVicPort();
+                if (TVicPort.IsDriverOpened() == 0)
+                {
+                    MessageBox.Show(error_loading_driver_tvicport, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
+                }
+            }
+
             foreach (string s in cmd)
             {
                 switch (s)
@@ -520,6 +598,13 @@ namespace LEDControl
                 }
                 prev = s;
             }
+
+            ReadSettings();
+
+            PowerManager.IsMonitorOnChanged += new EventHandler(MonitorOnChanged);
+
+            ReadSettingsKBD();
+
 
             if (rememberKBD.Checked) lightTimer.Enabled = true;
 
@@ -901,7 +986,7 @@ namespace LEDControl
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ThinkPad LEDs Control " + Application.ProductVersion + "\r\n\r\nUses code from the great open-source project TPFanControl, available at https://sourceforge.net/projects/tp4xfancontrol/. Contains demo code from Windows Dev Center available at https://code.msdn.microsoft.com/windowsapps/Disk-Activity-Task-bar-af8ae245, and http://blogs.msdn.com/b/toub/archive/2006/05/03/589423.aspx.\r\n\r\nBased on code from the Differentiated System Description Table of the ThinkPad W540/W541 from Lenovo, disassambled using iASL.\r\n\r\nCopyright(c) 2006-2016 ValiNet (Valentin-Gabriel Radu)\r\n\r\nPermission to use, copy, modify, and / or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\r\nOSS", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("ThinkPad LEDs Control " + Application.ProductVersion + "\r\n\r\nUses code from the great open-source project TPFanControl, available at https://sourceforge.net/projects/tp4xfancontrol/. Contains demo code from Windows Dev Center available at https://code.msdn.microsoft.com/windowsapps/Disk-Activity-Task-bar-af8ae245, and http://blogs.msdn.com/b/toub/archive/2006/05/03/589423.aspx.\r\n\r\nBased on code from the Differentiated System Description Table of the ThinkPad W540/W541 from Lenovo, disassambled using iASL.\r\n\r\nCopyright(c) 2006-2016 ValiNet (Valentin-Gabriel Radu)\r\n\r\nPermission to use, copy, modify, and / or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.\r\n\r\n" + "Driver: " + (Properties.Settings.Default.Driver == 1 ? "TVicPort" : "WinRing0") + "\r\n" + "Running as Administartor: " + (IsAdministrator() ? "Yes" : "No") + "\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\r\nOSS", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)

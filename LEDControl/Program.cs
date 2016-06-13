@@ -23,6 +23,16 @@ namespace LEDControl
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            if ((Properties.Settings.Default.FirstRun || Control.ModifierKeys == Keys.Shift) && !Environment.GetCommandLineArgs().Contains("driver"))
+            {
+                Welcome w = new Welcome();
+                if (w.ShowDialog() == DialogResult.Cancel)
+                {
+                    Environment.Exit(0);
+                }
+            }
+
             Application.Run(new Form1());
         }
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
