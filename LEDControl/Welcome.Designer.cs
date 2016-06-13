@@ -38,9 +38,10 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(476, 96);
+            this.label1.Size = new System.Drawing.Size(357, 78);
             this.label1.TabIndex = 1;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -51,24 +52,27 @@
             this.comboBox1.Items.AddRange(new object[] {
             "WinRing0 from OpenLibSys.org (Default)",
             "TVicPort from EnTech Taiwan (Obsolete)"});
-            this.comboBox1.Location = new System.Drawing.Point(15, 108);
+            this.comboBox1.Location = new System.Drawing.Point(11, 88);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(464, 24);
+            this.comboBox1.Size = new System.Drawing.Size(349, 21);
             this.comboBox1.TabIndex = 2;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 144);
+            this.label2.Location = new System.Drawing.Point(9, 117);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(476, 361);
+            this.label2.Size = new System.Drawing.Size(357, 293);
             this.label2.TabIndex = 3;
             this.label2.Text = resources.GetString("label2.Text");
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(241, 508);
+            this.button1.Location = new System.Drawing.Point(181, 413);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 33);
+            this.button1.Size = new System.Drawing.Size(87, 27);
             this.button1.TabIndex = 4;
             this.button1.Text = "&OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -77,9 +81,10 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(363, 508);
+            this.button2.Location = new System.Drawing.Point(272, 413);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(116, 33);
+            this.button2.Size = new System.Drawing.Size(87, 27);
             this.button2.TabIndex = 5;
             this.button2.Text = "&Cancel";
             this.button2.UseVisualStyleBackColor = true;
@@ -88,16 +93,17 @@
             // Welcome
             // 
             this.AcceptButton = this.button1;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(491, 550);
+            this.ClientSize = new System.Drawing.Size(368, 447);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "Welcome";
             this.ShowIcon = false;
@@ -110,9 +116,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        public System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -111,6 +111,7 @@
             this.checkInvertDot = new System.Windows.Forms.CheckBox();
             this.checkInvertPower = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -751,7 +752,7 @@
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(173, 660);
-            this.button8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(56, 19);
             this.button8.TabIndex = 56;
@@ -937,11 +938,22 @@
             this.label15.TabIndex = 68;
             this.label15.Text = "Invert action:";
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(179, 660);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(150, 23);
+            this.button12.TabIndex = 74;
+            this.button12.Text = "Choose driver";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 693);
+            this.Controls.Add(this.button12);
             this.Controls.Add(this.checkInvertFn);
             this.Controls.Add(this.checkInvertSleep);
             this.Controls.Add(this.checkInvertMicrophone);
@@ -1114,6 +1126,7 @@
         private System.Windows.Forms.CheckBox checkInvertDot;
         private System.Windows.Forms.CheckBox checkInvertPower;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button12;
     }
 }
 

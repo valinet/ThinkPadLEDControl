@@ -529,7 +529,7 @@ namespace LEDControl
                     case "minimize":
                         this.WindowState = FormWindowState.Minimized;
                         hide_me = true;
-                        if (checkHDD.Checked && IsAdministrator()) timer1.Enabled = true;
+                        timer1.Enabled = true;
                         break;
                     case "exit":
                         SaveSettings();
@@ -1519,6 +1519,18 @@ namespace LEDControl
                 else checkHDDFn.CheckState = CheckState.Unchecked;
             }
 
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Welcome w = new Welcome();
+            w.comboBox1.SelectedIndex = Properties.Settings.Default.Driver;
+            if (w.ShowDialog() == DialogResult.OK)
+            {
+                SaveSettings();
+                Process.Start(Application.ExecutablePath);
+                Environment.Exit(0);
+            }
         }
     }
 }
