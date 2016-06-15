@@ -1612,6 +1612,7 @@ namespace LEDControl
                 wrapup();
                 Process.Start(Application.ExecutablePath);
                 Application.DoEvents();
+
                 Environment.Exit(0);
             }
         }
