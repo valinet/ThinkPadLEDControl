@@ -15,10 +15,14 @@ namespace LEDControl
         [STAThread]
         static void Main()
         {
-            string resource1 = "LEDControl.CoreAudioApi.dll";
-            string resource2 = "LEDControl.Microsoft.WindowsAPICodePack.dll";
+            const string resource1 = "LEDControl.CoreAudioApi.dll";
+            const string resource2 = "LEDControl.Microsoft.WindowsAPICodePack.dll";
+            const string resource3 = "LEDControl.CbtHook.dll";
+            const string resource4 = "LEDControl.WindowsHook.dll";
             EmbeddedAssembly.Load(resource1, "CoreAudioApi.dll");
             EmbeddedAssembly.Load(resource2, "Microsoft.WindowsAPICodePack.dll");
+            EmbeddedAssembly.Load(resource3, "CbtHook.dll");
+            EmbeddedAssembly.Load(resource4, "WindowsHook.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
             Application.EnableVisualStyles();

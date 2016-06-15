@@ -430,5 +430,17 @@ namespace LEDControl.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DiskWarning {
+            get {
+                return ((bool)(this["DiskWarning"]));
+            }
+            set {
+                this["DiskWarning"] = value;
+            }
+        }
     }
 }

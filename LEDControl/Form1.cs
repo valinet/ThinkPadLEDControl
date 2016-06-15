@@ -430,6 +430,10 @@ namespace LEDControl
         const string error_loading_driver_tvicport = "There was an error loading the TVicPort driver. Please reinstall the application or reboot the machine.\r\n\r\nAlternatively, try running the application using the WinRing0 driver. Hold down [SHIFT] while launching the application in order to select another driver to run the application with.";
         const string error_loading_driver_winring = "There was an error loading the WinRing0 driver. Please reinstall the application or reboot the machine.\r\n\r\nAlternatively, you could try installing and using the TVicPort driver. Hold down [SHIFT] while launching the application in order to select another driver to run the application with.";
         const string error_winring_running_standard = "When running using the WinRing0 driver, this application requires administrative privileges at all times. From within the UI interface, you can configure the application to run at startup using administartive privileges without displaying this prompt.\r\n\r\nWould you like to attempt to relaunch this application with administrative privileges now?\r\n\r\nIf you would like to choose which driver to use again, click No in this request, and hold down the [SHIFT] key while launching again the application.";
+        const string unable_to_measure_hdd = "The application can't measure disk activity. This is most likely caused by disk performance counters being disabled on this system.\r\n\r\nWould you like this application to attempt to fix this automatically, by enabling the disk performance counters on your system? The application requires administrative privileges to do this.\r\n\r\nAlternatively, run \"LODCTR /E:PerfDisk\", followed by \"diskperf -Y\" from an Administrator Command Prompt.\r\n\r\nIf the issue persists after applying the fix, contact the developer of the application for more information, using e-mail: vali@valinet.ro, or the Reddit thread.";
+        const string failed_auto_fix = "Unable to apply the automatic fix, please try the manual procedure:\r\n\r\nRun \"lodctr /e:PerfDisk\", followed by \"diskperf -Y\" from an Administrator Command Prompt.\r\n\r\nIf the issue persists after applying the fix, contact the developer of the application for more information, using e-mail: vali@valinet.ro, or the Reddit thread.";
+        const string success_auto_fix = "Disk performance counters are now enabled on this machine.\r\n\r\nThe fix was successful. Press OK to launch the application.";
+        const string do_not_show_again = "Do not show this message again";
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -603,33 +607,48 @@ namespace LEDControl
 
             if (!PerformanceCounterCategory.Exists("LogicalDisk"))
             {
-                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Object LogicalDisk does not exist!", ToolTipIcon.Warning);
+                if (Properties.Settings.Default.DiskWarning == false)
+                {
+                    disk_counters_disabled();
+                }
                 checkHDD.Checked = true;
                 checkHDD.Enabled = false;
                 /*MessageBox.Show("Object LogicalDisk does not exist!", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);*/
             }
 
-            if (!PerformanceCounterCategory.CounterExists("Disk Read Bytes/sec", "LogicalDisk"))
+            else if (!PerformanceCounterCategory.CounterExists("Disk Read Bytes/sec", "LogicalDisk"))
             {
-                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Disk Read Counter not found!", ToolTipIcon.Warning);
+                if (Properties.Settings.Default.DiskWarning == false)
+                {
+                    disk_counters_disabled();
+                }
                 checkHDD.Checked = true;
                 checkHDD.Enabled = false;
                 /*MessageBox.Show("Disk Read Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);*/
             }
-            if (!PerformanceCounterCategory.CounterExists("Disk Write Bytes/sec", "LogicalDisk"))
+            else if (!PerformanceCounterCategory.CounterExists("Disk Write Bytes/sec", "LogicalDisk"))
             {
-                NotifyIcon1.ShowBalloonTip(10, "ThinkPad LEDs Control", "The application can't measure disk activity because: Disk Write Counter not found!", ToolTipIcon.Warning);
+                if (Properties.Settings.Default.DiskWarning == false)
+                {
+                    disk_counters_disabled();
+                }
                 checkHDD.Checked = true;
                 checkHDD.Enabled = false;
                 /*MessageBox.Show("Disk Write Counter not found", "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);*/
             }
-
-            ReadCounter = new PerformanceCounter("LogicalDisk", "Disk Read Bytes/sec", "_Total");
-            WriteCounter = new PerformanceCounter("LogicalDisk", "Disk Write Bytes/sec", "_Total");
-
+            else
+            {
+                ReadCounter = new PerformanceCounter("LogicalDisk", "Disk Read Bytes/sec", "_Total");
+                WriteCounter = new PerformanceCounter("LogicalDisk", "Disk Write Bytes/sec", "_Total");
+                if (Properties.Settings.Default.DiskWarning == true)
+                {
+                    Properties.Settings.Default.DiskWarning = false;
+                    Properties.Settings.Default.Save();
+                }
+            }
             workerHDD.RunWorkerAsync();
 
             NotifyIcon1.Text = "ThinkPad LEDs Control";
@@ -640,6 +659,68 @@ namespace LEDControl
                 CheckKeys();
             }
 
+        }
+
+        void disk_counters_disabled()
+        {
+            MessageBoxEx msg = new MessageBoxEx();
+            DialogResult dr = msg.Show("DiskWarning", "true", DialogResult.OK, do_not_show_again, unable_to_measure_hdd, "ThinkPad LEDs Control", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            if (dr == DialogResult.Yes)
+            {
+                string output = "";
+                Process pr = new Process();
+                ProcessStartInfo pi = new ProcessStartInfo();
+                pi.FileName = "cmd.exe";
+                pi.Arguments = "/c lodctr /Q:PerfDisk";
+                pi.RedirectStandardOutput = true;
+                pi.RedirectStandardError = true;
+                pr.OutputDataReceived += (s, d) => output += d.Data;
+                pr.StartInfo = pi;
+                pi.UseShellExecute = false;
+                pr.Start();
+                pr.BeginOutputReadLine();
+                pr.WaitForExit();
+                pr.CancelOutputRead();
+                if (output.Contains("Disabled"))
+                {
+                    output = "";
+                    pi.Arguments = "/c lodctr /E:PerfDisk";
+                    pr.Start();
+                    pr.BeginOutputReadLine();
+                    pr.WaitForExit();
+                    pr.CancelOutputRead();
+                    pi.Arguments = "/c lodctr /Q:PerfDisk";
+                    pr.Start();
+                    pr.BeginOutputReadLine();
+                    pr.WaitForExit();
+                    pr.CancelOutputRead();
+                    if (output.Contains("Enabled"))
+                    {
+                        output = "";
+                        pi.Arguments = "/c diskperf -Y";
+                        pr.Start();
+                        pr.BeginOutputReadLine();
+                        pr.WaitForExit();
+                        pr.CancelOutputRead();
+                        if (output.Contains("Raw counters are also enabled for IOCTL_DISK_PERFORMANCE."))
+                        {
+                            MessageBox.Show(success_auto_fix, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show(failed_auto_fix, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(failed_auto_fix, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(failed_auto_fix, "ThinkPad LEDs Control", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         #region Toggle_buttons
@@ -1032,7 +1113,7 @@ namespace LEDControl
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This option completely disables the HDD monitoring feature, including the tray icon. Only Caps Lock key monitoring will be available as an option, and by modifying the delay you can reduce the CPU usage this application generates.");
+            MessageBox.Show("This option completely disables the disk monitoring feature, including the tray icon. Only Caps Lock and Num Lock keys monitoring will be available as an option, and by modifying the delay you can reduce the CPU usage this application generates.\r\n\r\nYou may not be able to toggle the disk monitoring feature on/off if disk performance counters are disabled on your system. In order to enable them, open Command Prompt as Administartor, type \"lodctr /E:PerfDisk\", followed by \"diskperf -Y\", and open the application to try again.");
         }
 
         private void button3_Click(object sender, EventArgs e)
