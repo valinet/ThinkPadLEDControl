@@ -1043,6 +1043,14 @@ namespace LEDControl
             SaveSettingsKBD();
             NotifyIcon1.Visible = false;
             UnhookWindowsHookEx(_hookID);
+            if (Properties.Settings.Default.Driver == 0)
+            {
+                ols.DeinitializeOls();
+            }
+            else if (Properties.Settings.Default.Driver == 1)
+            {
+                TVicPort.CloseTVicPort();
+            }
             Environment.Exit(0);
         }
         #endregion
@@ -1055,6 +1063,14 @@ namespace LEDControl
             SaveSettingsKBD();
             NotifyIcon1.Visible = false;
             if (!checkBox5.Checked) UnhookWindowsHookEx(_hookID);
+            if (Properties.Settings.Default.Driver == 0)
+            {
+                ols.DeinitializeOls();
+            }
+            else if (Properties.Settings.Default.Driver == 1)
+            {
+                TVicPort.CloseTVicPort();
+            }
             Environment.Exit(0);
         }
 
