@@ -529,7 +529,7 @@ namespace LEDControl
                         timer1.Enabled = true;
                         break;
                     case "exit":
-                        SaveSettings();
+                        wrapup();
                         Environment.Exit(0);
                         break;
                     case "on":
@@ -1035,29 +1035,8 @@ namespace LEDControl
             this.WindowState = FormWindowState.Normal;
             this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2);
         }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        void wrapup()
         {
-            InProc = false;
-            SaveSettings();
-            SaveSettingsKBD();
-            NotifyIcon1.Visible = false;
-            UnhookWindowsHookEx(_hookID);
-            if (Properties.Settings.Default.Driver == 0)
-            {
-                ols.DeinitializeOls();
-            }
-            else if (Properties.Settings.Default.Driver == 1)
-            {
-                TVicPort.CloseTVicPort();
-            }
-            Environment.Exit(0);
-        }
-        #endregion
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
             InProc = false;
             SaveSettings();
             SaveSettingsKBD();
@@ -1071,6 +1050,19 @@ namespace LEDControl
             {
                 TVicPort.CloseTVicPort();
             }
+
+        }
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            wrapup();
+            Environment.Exit(0);
+        }
+        #endregion
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            wrapup();
             Environment.Exit(0);
         }
 
@@ -1617,8 +1609,9 @@ namespace LEDControl
             w.comboBox1.SelectedIndex = Properties.Settings.Default.Driver;
             if (w.ShowDialog() == DialogResult.OK)
             {
-                SaveSettings();
+                wrapup();
                 Process.Start(Application.ExecutablePath);
+                Application.DoEvents();
                 Environment.Exit(0);
             }
         }
