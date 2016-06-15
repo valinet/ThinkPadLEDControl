@@ -20,7 +20,7 @@ namespace LEDControl
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            comboBox1.SelectedIndex = 0;
+            if (comboBox1.SelectedIndex == -1) comboBox1.SelectedIndex = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)
