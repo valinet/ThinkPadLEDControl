@@ -1485,9 +1485,8 @@ namespace LEDControl
             if (checkTurnKBLightOff.Checked)
             {
                 string title = GetText(GetForegroundWindow());
-                Console.WriteLine(title);
                 foreach (Screen s in Screen.AllScreens)
-                    if (IsForegroundFullScreen() && title != "" && title != "Windows Default Lock Screen")
+                    if (IsForegroundFullScreen() && title != "" && title != "Windows Default Lock Screen" && title != "Program Manager")
                     {
                         if (!prev_l) prev_c = GetKeyboardLightlevel();
                         if (!prev_l) prev_v = true;
@@ -1532,7 +1531,7 @@ namespace LEDControl
 
         private void rememberKBD_CheckedChanged(object sender, EventArgs e)
         {
-            lightTimer.Enabled = rememberKBD.Checked;
+
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -1615,6 +1614,11 @@ namespace LEDControl
 
                 Environment.Exit(0);
             }
+        }
+
+        private void checkTurnKBLightOff_CheckedChanged(object sender, EventArgs e)
+        {
+            lightTimer.Enabled = checkTurnKBLightOff.Checked;
         }
     }
 }

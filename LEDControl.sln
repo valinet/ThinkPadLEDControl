@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEDControl", "LEDControl\LEDControl.csproj", "{C3AB624F-5637-42C4-9E84-55405F14AE80}"
 EndProject
@@ -19,8 +19,8 @@ Global
 		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Debug|x86.Build.0 = Debug|x86
 		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|x86.ActiveCfg = Release|Any CPU
-		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|x86.Build.0 = Release|Any CPU
+		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|x86.ActiveCfg = Release|x86
+		{C3AB624F-5637-42C4-9E84-55405F14AE80}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
