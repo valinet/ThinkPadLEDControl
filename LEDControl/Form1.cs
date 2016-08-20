@@ -1485,6 +1485,7 @@ namespace LEDControl
             if (checkTurnKBLightOff.Checked)
             {
                 string title = GetText(GetForegroundWindow());
+
                 foreach (Screen s in Screen.AllScreens)
                     if (IsForegroundFullScreen() && title != "" && title != "Windows Default Lock Screen" && title != "Program Manager")
                     {
