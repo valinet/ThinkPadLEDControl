@@ -1467,7 +1467,7 @@ namespace LEDControl
             for (int i = 0; i < devices.Count; i++)
             {
                 MMDevice deviceAt = devices[i];
-                if (deviceAt.FriendlyName.ToLower() == "microphone array")
+                if (deviceAt.FriendlyName.ToLower() == "microphone array" || deviceAt.FriendlyName.ToLower() == "microphone")
                     gMicrophoneDevices.Add(deviceAt);
             }
             if (gMicrophoneDevices.Count == 0)
@@ -1623,6 +1623,9 @@ namespace LEDControl
         {
             lightTimer.Enabled = checkTurnKBLightOff.Checked;
         }
+
+        // Example code from:
+        // http://stackoverflow.com/questions/3355606/detect-laptop-lid-closure-and-opening
 
         [DllImport(@"User32", SetLastError = true, EntryPoint = "RegisterPowerSettingNotification",
             CallingConvention = CallingConvention.StdCall)]

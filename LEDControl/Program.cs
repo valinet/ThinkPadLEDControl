@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -9,12 +10,16 @@ namespace LEDControl
 {
     static class Program
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool SetProcessDPIAware();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            SetProcessDPIAware();
+
             const string resource1 = "LEDControl.CoreAudioApi.dll";
             const string resource2 = "LEDControl.Microsoft.WindowsAPICodePack.dll";
             const string resource3 = "LEDControl.CbtHook.dll";
