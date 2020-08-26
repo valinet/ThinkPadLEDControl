@@ -44,4 +44,4 @@ The software is available under ISC license (https://en.wikipedia.org/wiki/ISC_l
 
 ## Changelog
 
-Changelog can be found at [CHANGELOG](https://github.com/valinet/ThinkPadLEDControl/blob/master/LICENSE). There is also a [Reddit thread](https://www.reddit.com/r/thinkpad/comments/49wtqw/hdd_led_for_all_thinkpads_hopefully/) where this application has been discussed extensively.
+Changelog can be found at [CHANGELOG](https://github.com/valinet/ThinkPadLEDControl/blob/master/CHANGELOG). There is also a [Reddit thread](https://www.reddit.com/r/thinkpad/comments/49wtqw/hdd_led_for_all_thinkpads_hopefully/) where this application has been discussed extensively.
