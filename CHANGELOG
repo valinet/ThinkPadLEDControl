@@ -1,0 +1,167 @@
+1.1.0.0 (11/3/2016)
+-------------------
+
+Adds support for monitoring changes to Caps Lock key, and toggle LEDs as
+answer.
+
+1.2.0.0 (12/3/2016)
+-------------------
+
+Improves the way the key changes are detected - now, if the application is run
+as administrator, the detection will be instantaneous and virtually zero 
+taxing on the CPU; if run normally, the new mechanism will work only for apps 
+that run with the same privileges as this application - for apps run as 
+administrator, the old mechanism (with the delay) will be applied. thus, the 
+delay does nothing if the app is run as admin, can be set to any value, and the
+same effect is achieved.
+
+Added option to set delay between the disk drives are checked for activity, 
+previously, this was hard coded to 1 ms.
+
+Added option to disable key monitoring altogether, alongside the existing 
+option to disable disk activity monitoring.
+
+Added option to have the launch automatically run at startup in the same 
+context the app is already in (for e.g., if the app was run as administrator,
+next time you start the system up, the app will run as administrator, without
+UAC prompt).
+
+Added posibility of monitoring the NumLock key as well, besides the existing
+Caps Lock option.
+
+Added new information about resources used, and version info, in the About 
+screen.
+
+Added several new explanaitions for the features offered via the '?' buttons.
+
+1.3.0.0 (8/4/2016)
+------------------
+
+Added page which lets you write any LED ID and status number, and write that
+to EC (this way, you can test different numbers for the LEDs on your ThinkPad,
+and report back which numbers correspond to which lights) - write just one 
+byte of data, in hex, so valid numbers there are from 00 to FF (0 to 255 in
+decimal). Skip the 0x in front of the hexadecimal number when writing in 
+those fields. There is a "+1" button which will increment the number in the
+text field automatically - please use this to test for new LED IDs, and report
+ back which numbers correspond to which LEDs; I discovered 2 new LEDs, 0x08,
+ and 0x09, but I don't know which lights these actualy correspond to yet.
+
+Added code to update LED status when the computer wakes up from a low power
+state (like sleep, or hibernation, and the status of the LEDs does not 
+correspond to the condition of a monitored asset - for example, if you put your
+computer to sleep, Caps Lock being off and have the app show the status of Caps
+ Lock on the power button, it will now turn off the button when waking up from
+ sleep, as it is changed by the BIOS to on at wake up.
+
+1.4.0.0 (4/6/2016)
+------------------
+
+Added ability to toggle Fn Lock LED, from the UI, using command line switches,
+and to assign actions to it.
+
+Added option to remember keybaord illumination after restart, sleep, shutdown
+and power on cycles.
+
+Added option to turn off keyboard lights when applications go full screen 
+(ideal for watching movies) - n.b. it does not turn off LEDs assigned to HDD
+activity.
+
+Added option to invert light status (negative feedback - instead of turning on
+the light based on an event, turn it off, and vice versa).
+
+Added option to set offset when debugging LEDs - basically said option now 
+allows writting of values everywhere in the EC - DO NOT ABUSE THIS OPTION,
+NOT ONLY CAN IT HAVE ADVERSE EFFECTS (LIKE ACCIDENTALY DISABLING THE FAN OF
+THE LAPTOP FOR E.G.), BUT THE COMPUTER MAY ALSO CRASH (TURNS OFF INSTANTLY,
+NO BSOD OR ELSE) IF THE EC IS SPAMMED - USE AT OWN RISK.
+
+1.5.0.0 (5/6/2016)
+------------------
+
+The app is now portable (Made CoreAudioApi.dll and
+Microsoft.WindowsAPICodePack.dll an embedded resource which is loaded at run
+time, rather than separate DLLs).
+
+The application now runs even if disk activity cannot be measured, disabling
+the disk activity monitoring features.
+
+Changed code that could cause a memory leak.
+
+Solved a bug that prevented the restoration of keyboard illumination after
+sleep or when the workstation was locked and the Windows lock screen was
+displayed in Windows 10.
+
+1.6.0.1 (13/6/2016)
+-------------------
+
+The application now supports 2 drivers for communicating with the EC: WinRing0
+(default, recommended), and TVicPort (legacy) - by requiring all applications
+that make use of its features to be run as administrator, WinRing0 is the
+secure choice, but requires the app to be run as admin at all times; TVicPort
+can lead to some serious security issues, but being used by TPFanControl as
+well, it could be a handy choice - Personally, I would recommend you to use
+WinRing0, unless you need the app running without administartive privileges
+for whatever reason (you still need admin to install TVicPort tho, so it won't
+be of use on corporate computers, if that is what you were thinking...).
+
+Added new command line arguments, check source code for more info, or ask here.
+
+Added an option to pick up the driver, after the initial setup, from the main
+UX.
+
+Fixed a bug that could prevent the app from launching silently at startup,
+using the Task Scheduler, or by other means.
+
+Fixed a bug that requested the user to pick the default driver again, after
+an application update.
+
+1.6.0.2 (15/6/2016)
+-------------------
+
+Fixed grammar in some text messages
+
+Added code to handle the situation when disk performance counters are disabled
+on the machine the application runs on. The user is given instructions on how
+to enable them in order to get HDD activity, and the application asks whether
+it should try to fix this issue automatically, at startup. The message can be
+dismissed, and set to not display again until the next time the issue is
+detected.
+
+Added more information to certain '?' explanations in the main window.
+
+Added code to deactivate EC driver on application exit.
+
+1.6.0.3 (15/6/2016)
+-------------------
+
+Added code to avoid the application displaying the 'LEDControl.exe has stopped
+working' message when relaunching after picking up a new driver for use from
+the 'Choose driver' section of the main window.
+
+When opened, the Welcome wizard selects the currently used driver in the drop
+down list, except when the dialog is shown at startup, at first run, or by
+holding the SHIFT key, in order to be easier for the user to make the safest
+choice.
+
+Added code to better handle the application closing from all the relevant
+entry points possible.
+
+1.6.0.4 (20/8/2016)
+-------------------
+
+Fixed a bug that prevented keyboard illuminaton auto switch off when going
+full screen from working if the setting to remember the keyboard illumination
+level after power events was set to off.
+
+Fixed a bug that caused the keyboard illumination to turn off if the foreground
+window was the desktop, and the setting to automatically turn off keyboard
+illumination when going full screen was on.
+
+1.6.0.5 (11/9/2016)
+-------------------
+
+Keyboard illumination level persists, if the option to remember keyboard light
+level is set in the main UI of the app, after the lid is closed and then opened
+again, and "Do nothing" is set as the action to perform when closing the lid in
+Windows power plan settings (thanks to bug report by Mavi_No1).
