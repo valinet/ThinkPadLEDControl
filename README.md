@@ -2,6 +2,10 @@
 
 ThinkPad LED Control is a Microsoft Windows application that allows controlling the various LEDs present on ThinkPad laptops and linking them to various system events (disk activity, key presses etc.).
 
+## Download
+
+Binaries are available in [Releases](https://github.com/valinet/ThinkPadLEDControl/releases). All other places where these may have been stored (Google Drive, Google Firebase) may be discontinued in the future, and removed at any time, although I will do my best to provide a redirect to this new location when possible.
+
 ## Features
 
 Current features of the application are:
