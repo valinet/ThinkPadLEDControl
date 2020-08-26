@@ -36,7 +36,7 @@ The application will start minimized, toggle the power LED off, make the microph
 
 In order to change the status of the LEDs, the application needs to interface with the embedded controller on the ThinkPad computers. It does this by using either one of these two kernel drivers: WinRing0 or TVicPort:
 * WinRing0 is a more secure choice, because it is an open-source driver which allows only applications that are run as administrator to interface with it. 
-* TVicPort is an old, unsecure driver which is popular because it is being used by [TPFanControl](https://thinkwiki.de/TPFanControl), a well-known application that allows controlling the fan speed on ThinkPad computers. Because it allows arbitrary applications to interface with it, it is highly not recommended to use it.
+* TVicPort is an old, insecure driver which is popular because it is being used by [TPFanControl](https://thinkwiki.de/TPFanControl), a well-known application that allows controlling the fan speed on ThinkPad computers. Because it allows arbitrary applications to interface with it, it is highly not recommended to use it.
 
 ## About
 
