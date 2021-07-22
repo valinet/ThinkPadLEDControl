@@ -1552,7 +1552,7 @@ namespace LEDControl
                         if (lvl == LightLevel.Off) SetKeyboardLevel(prev_c);
                         gMicrophoneDevices.Clear();
                         findMicrophones();
-                        if (gMicrophoneDevices[0].AudioEndpointVolume.Mute == true) LED(LEDs.Microphone, PowerStates.On, false);
+                        if (gMicrophoneDevices.Count > 1) if (gMicrophoneDevices[0].AudioEndpointVolume.Mute == true) LED(LEDs.Microphone, PowerStates.On, false);
                         LED(LEDs.Power, PowerStates.On, false);
                         CheckKeys();
                     }
