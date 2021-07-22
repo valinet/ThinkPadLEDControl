@@ -270,6 +270,25 @@ namespace LEDControl
             byte _out = (byte)(led | power);
             return WriteByteToEC(TP_LED_OFFSET, _out);
         }
+
+        bool LED2(byte led, PowerStates what)
+        {
+            byte power = 0xFF;
+            switch (what)
+            {
+                case PowerStates.On:
+                    power = 0x80;
+                    break;
+                case PowerStates.Off:
+                    power = 0x00;
+                    break;
+                case PowerStates.Blink:
+                    power = 0xC0;
+                    break;
+            }
+            byte _out = (byte)(led | power);
+            return WriteByteToEC(TP_LED_OFFSET, _out);
+        }
         #endregion
 
         #region Settings
@@ -550,6 +569,9 @@ namespace LEDControl
                             case "LEDFnLock":
                                 LED(LEDs.Fn, PowerStates.On);
                                 break;
+                            default:
+                                LED2(byte.Parse(prev), PowerStates.On);
+                                break;
                         }
                         break;
                     case "off":
@@ -570,6 +592,9 @@ namespace LEDControl
                             case "LEDFnLock":
                                 LED(LEDs.Fn, PowerStates.Off);
                                 break;
+                            default:
+                                LED2(byte.Parse(prev), PowerStates.Off);
+                                break;
                         }
                         break;
                     case "third":
@@ -589,6 +614,9 @@ namespace LEDControl
                                 break;
                             case "LEDFnLock":
                                 LED(LEDs.Fn, PowerStates.Blink);
+                                break;
+                            default:
+                                LED2(byte.Parse(prev), PowerStates.Blink);
                                 break;
                         }
                         break;
